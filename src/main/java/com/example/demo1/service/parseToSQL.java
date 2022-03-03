@@ -10,7 +10,7 @@ import java.sql.SQLException;
 
 public class parseToSQL {
     private Connection dbConnection = null;
-    dbConn conn;
+    static dbConn conn;
     public parseToSQL(JSONObject jsonObj) throws SQLException {
         conn = new dbConn();
         conn.createConnection();
@@ -69,7 +69,10 @@ public class parseToSQL {
             SQLCmd = "INSERT INTO users VALUES(" + "'"+id+"'"+","+"'"+pwd+"'"+",'1',' ' );";
             System.out.println(SQLCmd);
             result = conn.insertToDB(SQLCmd);
-            System.out.println("新用户注册，id="+id);
+            if(result==0) System.out.println("新用户注册成功，id = "+id);
+            else{
+                System.out.println("注册失败，用户已存在, id = "+ id );
+            }
             return 0;
         }
 

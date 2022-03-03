@@ -1,4 +1,5 @@
 package com.example.demo1.service;
+
 import java.sql.*;
 
 /*
@@ -45,12 +46,17 @@ public class dbConn {
 
     //修改数据
     public int insertToDB(String SQLCmd) throws SQLException {
-        Statement statement = dbConnection.createStatement(); // Statement对象
-        int rows; // 影响行数
-        ResultSet rs; // 结果集合
-        rows = statement.executeUpdate(SQLCmd);
-        System.out.println("插入影响行数为：" + rows);
-        return 0;
+        try {
+            Statement statement = dbConnection.createStatement(); // Statement对象
+            int rows; // 影响行数
+            ResultSet rs; // 结果集合
+            rows = statement.executeUpdate(SQLCmd);
+            System.out.println("插入影响行数为：" + rows);
+            return 0;
+        } catch (SQLException e) {
+            return 1;
+        }
+
     }
 
 
@@ -66,9 +72,10 @@ public class dbConn {
                         + rs.getString("author") + "-" + rs.getString("collection_number") + "-"
                         + rs.getString("existing_number") + "-" + rs.getString("price") + "-"
                         + rs.getString("publisher") + "-" + rs.getString("introduction");
+
+                s = s.replace(" ", "");
+                s = s.replace("-", ",");
                 result = s;
-                s.replace(" ", "");
-                s.replace("-", ",");
                 System.out.println(s);
             }
         }
@@ -83,9 +90,9 @@ public class dbConn {
                         + rs.getString("jc_name") + "-" + rs.getString("issue_number") + "-"
                         + rs.getString("volume_number") + "-" + rs.getString("page_number") + "-"
                         + rs.getString("doi");
+                s = s.replace(" ", "");
+                s = s.replace("-", ",");
                 result = s;
-                s.replace(" ", "");
-                s.replace("-", ",");
                 System.out.println(s);
             }
         }
@@ -93,19 +100,27 @@ public class dbConn {
     }
 
     public int UpdateDB(String SQLCmd) throws SQLException {
-        Statement statement = dbConnection.createStatement(); // Statement对象
-        int rows;
-        rows = statement.executeUpdate(SQLCmd);
-        System.out.println("更新影响行数为：" + rows);
-        return 0;
+        try {
+            Statement statement = dbConnection.createStatement(); // Statement对象
+            int rows;
+            rows = statement.executeUpdate(SQLCmd);
+            System.out.println("更新影响行数为：" + rows);
+            return 0;
+        } catch (SQLException e) {
+            return 1;
+        }
     }
 
     public int deleteFromDB(String SQLCmd) throws SQLException {
-        Statement statement = dbConnection.createStatement(); // Statement对象
-        int rows;
-        rows = statement.executeUpdate(SQLCmd);
-        System.out.println("删除影响行数为：" + rows);
-        return 0;
+        try {
+            Statement statement = dbConnection.createStatement(); // Statement对象
+            int rows;
+            rows = statement.executeUpdate(SQLCmd);
+            System.out.println("删除影响行数为：" + rows);
+            return 0;
+        } catch (SQLException e) {
+            return 1;
+        }
     }
 
     public int LoginDB(String SQLCmd, String pwd) throws SQLException {
@@ -113,17 +128,17 @@ public class dbConn {
         ResultSet rs; // 结果集合
         int result = 2;
         rs = statement.executeQuery(SQLCmd);
-        System.out.println("查询结果为：");
         while (rs.next()) {
             String id = rs.getString("user_name");
+            id = id.trim();
             String pwd_query = rs.getString("user_password");
-            pwd_query.replaceAll(" ","");
-            System.out.println("111111111111111111111111"+pwd_query+"uyuytuytutyujty");
-            System.out.println("++++++++++++++++++++++++"+pwd);
+            pwd_query = pwd_query.trim();
             String if_admin = rs.getString("identify");
+            System.out.println("登录请求,输入的密码为 " + pwd);
+            System.out.println("查询到的信息：id = " + id + " pwd =" + pwd_query + " if_admin= " + if_admin);
             if (pwd.equals(pwd_query)) {
-                if (if_admin.equals("1")) {
-                    result = 0;
+                if (if_admin.equals("0")) {
+                    return 0;
                 } else {
                     return 1;
                 }
