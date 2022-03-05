@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <script src="vendor/jquery/jquery-3.2.1.min.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>login</title>
+
+</head>
+
+
+<!--刷新按钮展示所有文献，之后会加分页处理-->
+<!--搜索要展示搜索文献结果-->
+<!--两个最好要在一个表格展示-->
+
+<div>
+    <input name="search" type="text"   placeholder="文献名称">
+    <button type="button" id="">搜索</button>
+</div>
+<div>
+    <button type="button" id="flash">刷新</button>
+</div>
+
+</body>
+
+<script>
+    $("#flash").click(function (){
+        login();
+
+    })
+
+    // $("#login1").click(function (){
+    //     login1();
+    //
+    // })
+
+
+
+
+    function login(){
+
+
+
+        let description = "flash";//查询所有书籍
+
+        console.log(description);
+        console.log("点击刷新按钮，显示所有文献");
+
+        $.ajax({
+            type: "POST",
+            url: "/queryDB",
+            dataType: "json",
+            data:JSON.stringify(description),
+            contentType : "application/json",
+            success: function (data) { //传回来的json数组
+
+                console.log("一共有多少条数据");
+                let dataLength=data.length;
+                console.log(data.length);
+                console.log(data);
+
+                //解析json数组
+                //参考网址：https://blog.csdn.net/u012235651/article/details/71172349
+                for (let i = 0; i < dataLength; i++) {
+                    //result[i]表示获得第i个json对象即JSONObject
+                    //result[i]通过.字段名称即可获得指定字段的值
+
+
+                   console.log(data[i]) ; //展示所有字段
+                    let demo=data[i];
+                    //分别对应所需要的 id , user_id ,pwd
+                    console.log(demo.id);
+                    console.log(demo.user_id);
+                    console.log(demo.pwd);
+
+                }
+
+
+
+            },
+            error: function (e) {
+                console.log(e);
+            }
+        })
+    }
+
+
+
+
+
+</script>
+</html>

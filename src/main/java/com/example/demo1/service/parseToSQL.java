@@ -11,40 +11,49 @@ import java.sql.SQLException;
 public class parseToSQL {
     private Connection dbConnection = null;
     static dbConn conn;
-    public parseToSQL(JSONObject jsonObj) throws SQLException {
+    public parseToSQL() throws SQLException {
         conn = new dbConn();
         conn.createConnection();
         dbConnection =  conn.dbConnection;
+
+    }
+
+
+
+    public String parse(JSONObject jsonObj) throws SQLException {
+        String result = null;
         int kind = jsonObj.getIntValue("id");
         switch (kind){
             case -2:
-                parse_1(jsonObj,false); // 注册
+                result = String.valueOf(parse_1(jsonObj,false)); // 注册
                 break;
             case -1:
-                parse_1(jsonObj,true);  //登录
+                result = String.valueOf(parse_1(jsonObj,true));  //登录
                 break;
             case 0:
-                parse0(jsonObj);
+                result = parse0(jsonObj);
                 break;
             case 1:
-                parse1(jsonObj);
+                result = parse1(jsonObj);
                 break;
             case 2:
-                parse2(jsonObj);
+                result = parse2(jsonObj);
                 break;
             case 3:
-                parse3(jsonObj);
+                result = String.valueOf(parse3(jsonObj));
                 break;
             default:
                 System.out.println("Wrong kind of Operation "+ kind);
                 break;
         }
-        conn.closeConnection();
+
+        return (String) result;
     }
 
-
-
-
+    public int closeConnection(){
+        conn.closeConnection();
+        return 0;
+    }
     public int parse_1(JSONObject jsonObj,boolean if_login) throws SQLException {
         String id = jsonObj.getString("user_id");
         String pwd = jsonObj.getString("pwd");
@@ -147,7 +156,7 @@ public class parseToSQL {
         String dbQuery = "SELECT " + "*" + " FROM " + dbName +" WHERE book_id=" + objectID+";";
         System.out.println(dbQuery);
         String queryResult = conn.QueryDB(dbQuery,true);
-        String temp[]=queryResult.split("-");
+        String temp[]=queryResult.split(",");
         temp[4]=temp[4].replace(" ",""); //第五位即为existing number
         int existingNumber = Integer.parseInt(temp[4]);
         existingNumber += number;
@@ -194,15 +203,16 @@ public class parseToSQL {
         JSONObject jsonObj2 =  JSON.parseObject(json2);
         JSONObject jsonObj3 =  JSON.parseObject(json3);
         JSONObject jsonObj4 =  JSON.parseObject(json4);
-        parseToSQL temp = new parseToSQL(jsonObj_2);
-        temp = new parseToSQL(jsonObj_22);
-        temp = new parseToSQL(jsonObj_1);
-        temp = new parseToSQL(jsonObj_22);
-//        temp = new parseToSQL(jsonObj0);
-//        temp = new parseToSQL(jsonObj2);
-//        temp = new parseToSQL(jsonObj3);
-//
-//       temp = new parseToSQL(jsonObj4);
-//        temp = new parseToSQL(jsonObj0);
+        parseToSQL temp = new parseToSQL();
+        temp.parse(jsonObj0);
+        temp.parse(jsonObj_22);
+        temp.parse(jsonObj_1);
+        temp.parse(jsonObj_22);
+        temp.parse(jsonObj2);
+        temp.parse(jsonObj3);
+        temp.parse(jsonObj4);
+        temp.parse(jsonObj_2);
+        temp.closeConnection();
+
     }
 }

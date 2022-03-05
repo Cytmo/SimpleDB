@@ -64,7 +64,7 @@ public class dbConn {
         Statement statement = dbConnection.createStatement(); // Statement对象
         ResultSet rs; // 结果集合
         rs = statement.executeQuery(SQLCmd);
-        String result = null;
+        String result = "";
         System.out.println("查询结果为：");
         if (if_books) {
             while (rs.next()) {
@@ -75,7 +75,8 @@ public class dbConn {
 
                 s = s.replace(" ", "");
                 s = s.replace("-", ",");
-                result = s;
+                result = result + s + ";"+"\n";
+                s = s+";";
                 System.out.println(s);
             }
         }
@@ -92,7 +93,8 @@ public class dbConn {
                         + rs.getString("doi");
                 s = s.replace(" ", "");
                 s = s.replace("-", ",");
-                result = s;
+                result = result + s + ";"+"\n";
+                s = s+";";
                 System.out.println(s);
             }
         }
