@@ -160,6 +160,10 @@ iframe {
   background: #fff;
   border-radius: 10px;
   overflow: hidden;
+  margin-right: 20%;
+  margin-left: auto;
+
+
 }
 
 
@@ -168,6 +172,7 @@ iframe {
 
 .login100-form {
   width: 100%;
+
 }
 
 .login100-form-title {
