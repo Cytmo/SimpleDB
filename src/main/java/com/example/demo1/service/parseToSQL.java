@@ -1,6 +1,7 @@
 package com.example.demo1.service;
 
 import com.huawei.shade.com.alibaba.fastjson.JSON;
+import com.huawei.shade.com.alibaba.fastjson.JSONArray;
 import com.huawei.shade.com.alibaba.fastjson.JSONObject;
 
 import java.sql.Connection;
@@ -31,7 +32,7 @@ public class parseToSQL {
                 result = String.valueOf(parse_1(jsonObj,true));  //登录
                 break;
             case 0:
-                result = parse0(jsonObj);
+                parse0(jsonObj);
                 break;
             case 1:
                 result = parse1(jsonObj);
@@ -86,7 +87,7 @@ public class parseToSQL {
         }
 
     }
-    public String parse0(JSONObject jsonObj) throws SQLException {
+    public JSONArray parse0(JSONObject jsonObj) throws SQLException {
         int kind = jsonObj.getIntValue("kind");
         String dbname = "books";
         boolean if_books = true;
@@ -95,7 +96,8 @@ public class parseToSQL {
             if_books = false;
         }
         String SQLCmd = "SELECT * FROM "+ dbname+";";
-        return conn.QueryDB(SQLCmd,if_books);
+        conn.QueryDB(SQLCmd,if_books);
+        return conn.queryResultReturned;
     }
 
     public String parse1(JSONObject jsonObj) throws SQLException {
@@ -205,14 +207,14 @@ public class parseToSQL {
         JSONObject jsonObj4 =  JSON.parseObject(json4);
         parseToSQL temp = new parseToSQL();
         temp.parse(jsonObj0);
-        temp.parse(jsonObj_22);
-        temp.parse(jsonObj_1);
-        temp.parse(jsonObj_22);
-        temp.parse(jsonObj2);
-        temp.parse(jsonObj3);
-        temp.parse(jsonObj4);
-        temp.parse(jsonObj_2);
-        temp.closeConnection();
+//        temp.parse(jsonObj_22);
+//        temp.parse(jsonObj_1);
+//        temp.parse(jsonObj_22);
+//        temp.parse(jsonObj2);
+//        temp.parse(jsonObj3);
+//        temp.parse(jsonObj4);
+//        temp.parse(jsonObj_2);
+//        temp.closeConnection();
 
     }
 }

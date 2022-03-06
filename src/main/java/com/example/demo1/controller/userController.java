@@ -9,7 +9,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
+import com.example.demo1.service.*;
 
+import java.sql.SQLException;
 
 @Controller
 public class userController {
@@ -21,29 +23,16 @@ public class userController {
 
     @RequestMapping(path = "/queryDB",method = RequestMethod.POST)
     @ResponseBody
-    public JSONArray queryDB(@RequestBody(required=false) String str){
+    public JSONArray queryDB(@RequestBody(required=false) String str) throws SQLException {
 
         JSONArray jsonArray = new JSONArray();
-
-        JSONObject book1=new JSONObject();
-        book1.put("id","111");
-        book1.put("user_id","111333");
-        book1.put("pwd","这本书很棒");
-
-        JSONObject book2=new JSONObject();
-        book2.put("id","222");
-        book2.put("user_id","222");
-        book2.put("pwd","大家加油!");
-
-        JSONObject book3=new JSONObject();
-        book3.put("id","333");
-        book3.put("user_id","333444555");
-        book3.put("pwd","我爱华为");
-
-        jsonArray.add(book1);
-        jsonArray.add(book2);
-        jsonArray.add(book3);
+        JSONObject tempJSON = new JSONObject();
+        tempJSON.put("id","0");
+        tempJSON.put("kind","0");
+        parseToSQL temp = new parseToSQL();
+        jsonArray = temp.parse0(tempJSON);
         System.out.println(jsonArray);
+
         return jsonArray;
 
     }

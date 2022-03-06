@@ -1,5 +1,8 @@
 package com.example.demo1.service;
 
+import com.huawei.shade.com.alibaba.fastjson.JSONArray;
+import com.huawei.shade.com.alibaba.fastjson.JSONObject;
+
 import java.sql.*;
 
 /*
@@ -11,6 +14,7 @@ public class dbConn {
     private final String dbUrl = "jdbc:opengauss://121.36.60.12:5432/remote_db";
     private final String dbUserName = "remote_user";
     private final String dbPassword = "huawei+123";
+    public JSONArray queryResultReturned= new JSONArray();
     public Connection dbConnection = null;
 
     //通过构造方法加载数据库驱动
@@ -64,6 +68,9 @@ public class dbConn {
         Statement statement = dbConnection.createStatement(); // Statement对象
         ResultSet rs; // 结果集合
         rs = statement.executeQuery(SQLCmd);
+        Statement statement1 = dbConnection.createStatement();
+        ResultSet rs1;
+        rs1 = statement1.executeQuery(SQLCmd);
         String result = "";
         System.out.println("查询结果为：");
         if (if_books) {
@@ -72,12 +79,11 @@ public class dbConn {
                         + rs.getString("author") + "-" + rs.getString("collection_number") + "-"
                         + rs.getString("existing_number") + "-" + rs.getString("price") + "-"
                         + rs.getString("publisher") + "-" + rs.getString("introduction");
-
                 s = s.replace(" ", "");
                 s = s.replace("-", ",");
+                System.out.println(s);
                 result = result + s + ";"+"\n";
                 s = s+";";
-                System.out.println(s);
             }
         }
 //        ● 文献id objectID
@@ -98,6 +104,39 @@ public class dbConn {
                 System.out.println(s);
             }
         }
+
+
+        JSONArray queryResult = new JSONArray();
+        if (if_books) {
+            while (rs1.next()) {
+                JSONObject temp = new JSONObject();
+                temp.put("book_id", rs1.getString("book_id").trim() );
+                temp.put("book_name",rs1.getString("book_name").trim());
+                temp.put("author",rs1.getString("author").trim());
+                temp.put("collection_number",rs1.getString("collection_number").trim());
+                temp.put("existing_number",rs1.getString("existing_number").trim());
+                temp.put("price",rs1.getString("price").trim());
+                temp.put("publisher",rs1.getString("publisher").trim());
+                temp.put("introduction",rs1.getString("introduction").trim());
+                queryResult.add(temp);
+            }
+        }
+        else{
+//        ● 文献id objectID
+//        ● 文献类别(0:图书,1:论文) kind
+//        ● 插入还是删除 IOD (0:插入/1:删除)
+//        ● 论文(名字,作者,时间,期刊会议名称,期号，卷号，页号，DOI)  分割号是逗号------合并成一个字符串 introduction
+        while (rs1.next()) {
+            String s = rs1.getString("paper_id") + "-" + rs1.getString("paper_title") + "-"
+                    + rs1.getString("author") + "-" + rs1.getString("date") + "-"
+                    + rs1.getString("jc_name") + "-" + rs1.getString("issue_number") + "-"
+                    + rs1.getString("volume_number") + "-" + rs1.getString("page_number") + "-"
+                    + rs1.getString("doi");
+
+        }
+    }
+
+        queryResultReturned = queryResult;
         return result;
     }
 
