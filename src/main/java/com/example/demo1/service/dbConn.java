@@ -64,7 +64,8 @@ public class dbConn {
     }
 
 
-    public String QueryDB(String SQLCmd, boolean if_books) throws SQLException {
+    public String QueryDB(String SQLCmd, int kind) throws SQLException {
+        //kind 0 books 1 papers 2 records
         Statement statement = dbConnection.createStatement(); // Statement对象
         ResultSet rs; // 结果集合
         rs = statement.executeQuery(SQLCmd);
@@ -73,7 +74,7 @@ public class dbConn {
         rs1 = statement1.executeQuery(SQLCmd);
         String result = "";
         System.out.println("查询结果为：");
-        if (if_books) {
+        if (kind == 0) {
             while (rs.next()) {
                 String s = rs.getString("book_id") + "-" + rs.getString("book_name") + "-"
                         + rs.getString("author") + "-" + rs.getString("collection_number") + "-"
@@ -90,7 +91,7 @@ public class dbConn {
 //        ● 文献类别(0:图书,1:论文) kind
 //        ● 插入还是删除 IOD (0:插入/1:删除)
 //        ● 论文(名字,作者,时间,期刊会议名称,期号，卷号，页号，DOI)  分割号是逗号------合并成一个字符串 introduction
-        else {
+        else if(kind == 1){
             while (rs.next()) {
                 String s = rs.getString("paper_id") + "-" + rs.getString("paper_title") + "-"
                         + rs.getString("author") + "-" + rs.getString("date") + "-"
@@ -107,7 +108,8 @@ public class dbConn {
 
 
         JSONArray queryResult = new JSONArray();
-        if (if_books) {
+        System.out.println("Operation type is "+kind);
+        if (kind == 0) {
             while (rs1.next()) {
                 JSONObject temp = new JSONObject();
                 temp.put("book_id", rs1.getString("book_id").trim() );
@@ -121,20 +123,37 @@ public class dbConn {
                 queryResult.add(temp);
             }
         }
-        else{
+        else if(kind == 1){
 //        ● 文献id objectID
 //        ● 文献类别(0:图书,1:论文) kind
 //        ● 插入还是删除 IOD (0:插入/1:删除)
 //        ● 论文(名字,作者,时间,期刊会议名称,期号，卷号，页号，DOI)  分割号是逗号------合并成一个字符串 introduction
         while (rs1.next()) {
-            String s = rs1.getString("paper_id") + "-" + rs1.getString("paper_title") + "-"
-                    + rs1.getString("author") + "-" + rs1.getString("date") + "-"
-                    + rs1.getString("jc_name") + "-" + rs1.getString("issue_number") + "-"
-                    + rs1.getString("volume_number") + "-" + rs1.getString("page_number") + "-"
-                    + rs1.getString("doi");
-
+            JSONObject temp = new JSONObject();
+            temp.put("paper_id", rs1.getString("paper_id").trim() );
+            temp.put("paper_title",rs1.getString("paper_title").trim());
+            temp.put("author",rs1.getString("author").trim());
+            temp.put("date",rs1.getString("date").trim());
+            temp.put("jc_name",rs1.getString("jc_name").trim());
+            temp.put("issue_number", rs1.getString("issue_number").trim());
+            temp.put("volume_number",rs1.getString("volume_number").trim());
+            temp.put("page_number",rs1.getString("page_number").trim());
+            temp.put("doi",rs1.getString("doi").trim());
+            queryResult.add(temp);
         }
     }
+        else
+        {
+            while (rs1.next()) {
+                JSONObject temp = new JSONObject();
+                temp.put("user_id", rs1.getString("user_id").trim());
+                temp.put("object_id", rs1.getString("object_id").trim());
+                temp.put("number", rs1.getString("number").trim());
+                temp.put("date", rs1.getDate("date"));
+                queryResult.add(temp);
+            }
+
+        }
 
         queryResultReturned = queryResult;
         return result;

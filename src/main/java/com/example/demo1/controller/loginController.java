@@ -10,6 +10,11 @@ import java.sql.SQLException;
 
 @Controller
 public class loginController {
+    parseToSQL temp = new parseToSQL();
+
+    public loginController() throws SQLException {
+    }
+
     @RequestMapping(path="/login",method = RequestMethod.GET)
     public String login_html(){
 
@@ -44,7 +49,7 @@ public class loginController {
         json.put("id","-1");
         json.put("user_id",user.getUser_name());
         json.put("pwd",user.getUser_password());
-        parseToSQL temp = new parseToSQL();
+
         String ret = temp.parse(json);
         JSONObject result = new JSONObject();
         result.put("msg",ret);
