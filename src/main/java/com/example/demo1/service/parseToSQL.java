@@ -170,12 +170,13 @@ public class parseToSQL {
         String number = jsonObj.getString("number");
         String dbName = "books";
         Date time = new java.sql.Date(new java.util.Date().getTime());
-        String querySQLCmd = "SELECT * FROM records WHERE user_id = " + "'" + userid + "' and 'object_id'= '" + objectID + "';";
+        String querySQLCmd = "SELECT * FROM records WHERE user_id = " + "'" + userid + "' and object_id= '" + objectID + "';";
         conn.QueryDB(querySQLCmd, 2);
         JSONArray temp = conn.queryResultReturned;
+        System.out.println(querySQLCmd);
+        System.out.println(temp);
         if (temp.equals(new JSONArray())) {
             //借 没有借过的
-
             String SQLCmd = "INSERT INTO records VALUES" + "('" + user_id + "','" + objectID + "','" + Integer.parseInt(number) + "','" + time + "');";
             System.out.println(SQLCmd);
             conn.insertToDB(SQLCmd);
@@ -183,19 +184,24 @@ public class parseToSQL {
         } else {
             //Date date = new Date();
             //借/还 已经借过的
-            int borrowed = Integer.parseInt(temp.getString(2));
-            int num = Integer.parseInt(number);
-            int currentNum=0;
-            if (num > 0) //还书
-            {
-                currentNum = borrowed - num;
-
-            } else {
-                //借书
-                currentNum = borrowed + num;
+            int borrowed = Integer.parseInt(temp.getJSONObject(0).getString("number"));
+            int num =0;
+            System.out.println("number is "+ number);
+            if(number.charAt(0)=='-') num = -Integer.parseInt(number);
+            else if(number.charAt(0)=='+'){
+                num = Integer.parseInt(number);
             }
-            String SQLCmdToDelete = "DELETE FROM records WHERE user_id = " + "'" + userid + "' and 'object_id'= '" + objectID + "';";
+            else{
+                System.out.println("Illegal borrow/return number format");
+                return "Illegal borrow/return number format";
+            }
+            int currentNum= borrowed + num;
+
+            String SQLCmdToDelete = "DELETE FROM records WHERE user_id = " + "'" + userid + "' and object_id= '" + objectID + "';";
+
             String SQLCmdToInsert = "INSERT INTO records VALUES" + "('" + user_id + "','" + objectID + "','" + currentNum + "','" + time + "');";
+            System.out.println( SQLCmdToDelete );
+            System.out.println( SQLCmdToInsert );
             conn.deleteFromDB(SQLCmdToDelete);
             conn.insertToDB(SQLCmdToInsert);
         }

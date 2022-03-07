@@ -1,8 +1,5 @@
 package com.example.demo1.controller;
 
-import com.example.demo1.model.test_book;
-import com.example.demo1.model.users;
-import com.huawei.shade.com.alibaba.fastjson.JSON;
 import com.huawei.shade.com.alibaba.fastjson.JSONArray;
 import com.huawei.shade.com.alibaba.fastjson.JSONObject;
 import org.springframework.stereotype.Controller;
@@ -57,6 +54,19 @@ public class userController {
         if(id == 0) tempJSON.put("kind","0");
         else tempJSON.put("kind","1");
         jsonArray = temp.parse5(tempJSON);
+        System.out.println(jsonArray);
+
+        return jsonArray;
+
+    }
+
+
+    @RequestMapping(path = "/br",method = RequestMethod.POST) //borrow and return
+    @ResponseBody
+    public String br(@RequestBody(required=false) JSONObject jsonObject) throws SQLException {
+        
+        parseToSQL temp = new parseToSQL();
+        String jsonArray = temp.parse(jsonObject);
         System.out.println(jsonArray);
 
         return jsonArray;
