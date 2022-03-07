@@ -1,130 +1,108 @@
 <!DOCTYPE html>
-<html lang="en">
- 
+<html lang="zh-CN">
+
 <head>
+    <title>登录页面</title>
     <meta charset="UTF-8">
-    <script src="vendor/jquery/jquery-3.2.1.min.js"></script>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>login</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <style>
-        table {
-            width: 600px;
-            border-collapse: collapse;
-            text-align: center;
-        }
+    <link rel="stylesheet" type="text/css" href="fonts/font-awesome-4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" type="text/css" href="fonts/iconic/css/material-design-iconic-font.min.css">
+    <link rel="stylesheet" type="text/css" href="css/util.css">
+    <link rel="stylesheet" type="text/css" href="css/main.css">
 
-        td,
-        th {
-            border: 1px solid #ccc
-        }
-    </style>
+
 </head>
- 
+
 <body>
-    <div>
-        <div>
-            <!-- 左上角部分 -->
-            <div class="chrome">
-                <span>欢迎</span>
-                <span>使用</span>
-            </div>
- 
-            </div>
- 
-            <!-- 中间部分 -->
-            <div class="center">
-                <!-- 登陆框 -->
-                <div class="user">
-                    <p class="cuser">账号登录</p>
-                    <!-- 用户名密码及登录按钮部分 -->
-                    <div class="form">
-                        <div class="user1">
-<!--                            <img src="images/user.png" alt="">-->
+
+<div class="limiter">
+    <div class="container-login100" style="background-image: url('images/bg-01.jpg');">
+        <img src="images/whu_logo.png" width="200" height="200"  alt="" style="position: absolute ;left: 300px;" >
+<!--        TODO :这里调整图片位置和大小-->
+
+        <div class="wrap-login100 p-l-55 p-r-55 p-t-65 p-b-54">
+            <!--        TODO :这里调整 登录外壳框 的位置   , css/main.css/wrap-login100样式 158行-->
 
 
-                                <input name="test1" type="text"   placeholder="用户名">
 
+            <form class="login100-form validate-form">
+                <span class="login100-form-title p-b-49">文献管理系统</span>
+                <span class="login100-form-title p-b-49">登录</span>
 
-                        </div>
-                        <div class="user2">
-<!--                            <img src="images/passwd.png" alt="">-->
-                            <input name="test2"  type="password" placeholder="密码">
-                        </div>
-                        <div>
-                            <button type="button" id="login">马上登录</button>
-                        </div>
-                    </div>
-                    <div style="height: 25px;"></div>
-                    <div class="mima">
-                        <p class="jz">
-                            <input type="checkbox" class="box">
-                            <span>记住密码</span>
-                        </p>
-                        <p class="wj">忘记密码?
-                            <a href="#">立即找回</a>
-                        </p>
+                <div class="wrap-input100 validate-input m-b-23" data-validate="请输入用户名">
+                    <span class="label-input100">用户名</span>
+                    <input class="input100" type="text" name="username" placeholder="请输入用户名" autocomplete="off">
+                    <span class="focus-input100" data-symbol="&#xf206;"></span>
+                </div>
+
+                <div class="wrap-input100 validate-input" data-validate="请输入密码">
+                    <span class="label-input100">密码</span>
+                    <input class="input100" type="password" name="password" placeholder="请输入密码">
+<!--                    <span class="focus-input100" data-symbol="&#xf190;"></span>-->
+                </div>
+
+                <div class="text-right p-t-8 p-b-31">
+                    <a href="javascript:">忘记密码？</a>
+                </div>
+
+                <div class="container-login100-form-btn">
+                    <div class="wrap-login100-form-btn">
+                        <div class="login100-form-bgbtn" ></div>
+                        <button class="login100-form-btn" name="loginButton">立即登 录</button>
                     </div>
                 </div>
-            </div>
- 
-            <!-- 底部部分 -->
-            <div class="foot">
-                <p class="banquan">
-                    2020年5月10日
-                </p>
-            </div>
+
+<!--                <div class="txt1 text-center p-t-54 p-b-20">-->
+<!--                    <span>第三方登录</span>-->
+<!--                </div>-->
+
+<!--                <div class="flex-c-m">-->
+<!--                    <a href="#" class="login100-social-item bg1">-->
+<!--                        <i class="fa fa-facebook"></i>-->
+<!--                    </a>-->
+
+<!--                    <a href="#" class="login100-social-item bg2">-->
+<!--                        <i class="fa fa-twitter"></i>-->
+<!--                    </a>-->
+
+<!--                    <a href="#" class="login100-social-item bg3">-->
+<!--                        <i class="fa fa-google"></i>-->
+<!--                    </a>-->
+<!--                </div>-->
+
+<!--                <div class="flex-col-c p-t-25">-->
+<!--                    <a href="javascript:" class="txt2">立即注册</a>-->
+<!--                </div>-->
+            </form>
         </div>
- 
     </div>
+</div>
 
-<!--    <div class="accordion-inner">-->
-<!--        <table class="table table-striped table-hover">-->
-<!--            <thead>-->
-<!--            <tr>-->
-<!--                <td>景点id</td>-->
-<!--                <td>景点名称</td>-->
-<!--                <td>推荐指数</td>-->
-<!--                <td>门票价格</td>-->
-<!--                <td>地址</td>-->
-<!--                <td>联系电话</td>-->
-<!--                <td>操作</td>-->
-<!--            </tr>-->
-<!--            </thead>-->
-<!--            <tbody id="scenic-information">-->
-<!--            </tbody>-->
-<!--        </table>-->
-<!--        <p class="text-right">-->
+<script src="vendor/jquery/jquery-3.2.1.min.js"></script>
+<!--<script src="js/main.js"></script>-->
 
-<!--            <a class="btn btn-default" id="findAllScenic">查询</a>-->
-<!--        </p>-->
-<!--    </div>-->
-
-
-</body>
 
 <script>
-    $("#login").click(function (){
+    $("#loginButton").click(function (){
         login();
-
     })
 
     function login(){
 
         let obj={};
-        obj.user_name=$("input[name='test1']").val();//用户名
-        obj.user_password=$("input[name='test2']").val();//密码
-        obj.identify="1111";
-        obj.email="1111";
+        obj.user_name=$("input[name='username']").val();//用户名
+        obj.user_password=$("input[name='password']").val();//密码
+        obj.identify="";
+        obj.email="";
 
         console.log("用户名");
         console.log(obj.user_name);
         console.log("密码");
         console.log(obj.user_password);
 
-        // obj.user_name="jeremy";
-        // obj.user_password="password";
+        obj.user_name="jeremy";
+        obj.user_password="password";
 
         let description = "";
         for(let i in obj){
@@ -143,13 +121,16 @@
 
                 console.log(data.msg); //传回的信号
 
+                data.msg="0";
 
 
                 if(data.msg=="0"){
-                    console.log("admin login")
-                 // window.location.href="user.html"; //用户页面跳转,去掉注释即可跳转
+                    console.log("管理员登录")
+                    window.alert("管理员登录"); //显示警告框
+                    // window.location.href="admin.html"; //用户页面跳转,去掉注释即可跳转
                 }else if(data.msg == "1"){
-                   window.alert("user login"); //显示警告框
+                    window.alert("用户登录"); //显示警告框
+                    // window.location.href="user.html"; //用户页面跳转,去掉注释即可跳转
                 }else if(data.msg == "2"){
                     window.alert("wrong pwd or user_id"); //显示警告框
                 }else{
@@ -165,10 +146,7 @@
         })
     }
 
-
-
-
-
-
 </script>
+</body>
+
 </html>

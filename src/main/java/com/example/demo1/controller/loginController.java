@@ -13,25 +13,9 @@ public class loginController {
     @RequestMapping(path="/login",method = RequestMethod.GET)
     public String login_html(){
 
-        return "forward:login.html";
+        return "forward:login_test.html";
     }
 
-    //接收login_test页面的字符数组
-//    @RequestMapping(path = "/login",method = RequestMethod.POST,produces = "application/json;charset=utf-8")
-//    @ResponseBody
-//    public Object Receive(@RequestBody users user){  //Employee可以改为Object
-////
-////        System.out.println(user.getUser_name()+"\n"+user.getUser_password()+user.getIdentify()+user.getEmail());
-//
-//        System.out.println(user.getUser_name());
-//        if(user.getUser_name().equals("jeremy")) {
-//            return "{\"msg\":\"添加成功,恭喜你\"}";
-//        }else
-//        {
-//            return "{\"msg\":\"添加失败,加油,再试一试\"}";
-//        }
-//
-//    }
 
     @RequestMapping(path = "/login",method = RequestMethod.POST)
     @ResponseBody
@@ -44,6 +28,7 @@ public class loginController {
         json.put("id","-1");
         json.put("user_id",user.getUser_name());
         json.put("pwd",user.getUser_password());
+        System.out.println(user.getUser_name()+"    "+user.getUser_password());
         parseToSQL temp = new parseToSQL();
         String ret = temp.parse(json);
         JSONObject result = new JSONObject();
