@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <script src="vendor/jquery/jquery-3.2.1.min.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+    <link rel="stylesheet" type="text/css" href="fonts/font-awesome-4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" type="text/css" href="fonts/iconic/css/material-design-iconic-font.min.css">
+
+    <link rel="stylesheet" type="text/css" href="css/login.css">
+    <link rel="stylesheet" type="text/css" href="css/main.css">
+    <title>login</title>
+
+
+
+
+</head>
+
+<body>
+<div class="limiter1">
+
+    <div class="container-login1001" style="background-image: url('images/bg-01.jpg');">
+        <div class="wrap-login100 p-l-55 p-r-55 p-t-65 p-b-54">
+
+            <form class="login100-form validate-form">
+                <span class="login100-form-title p-b-49">文献管理系统</span>
+                <span class="login100-form-title p-b-49">登录</span>
+
+        <div>
+
+
+            <!-- 中间部分 -->
+            <div class="center">
+                <!-- 登陆框 -->
+                <div class="user">
+                    <p class="cuser">账号登录</p>
+                    <!-- 用户名密码及登录按钮部分 -->
+                    <div class="form">
+                        <div class="user1">
+                            <!--                            <img src="images/user.png" alt="">-->
+
+
+                            <input name="username" type="text"   placeholder="用户名">
+
+
+                        </div>
+                        <div class="user2">
+                            <!--                            <img src="images/passwd.png" alt="">-->
+                            <input name="password"  type="password" placeholder="密码">
+                        </div>
+                        <div>
+                            <button type="button" id="login">马上登录</button>
+                        </div>
+                    </div>
+                    <div style="height: 25px;"></div>
+                    <div class="mima">
+                        <p class="jz">
+                            <input type="checkbox" class="box">
+                            <span>记住密码</span>
+                        </p>
+                        <p class="wj">忘记密码?
+                            <a href="#">立即找回</a>
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 底部部分 -->
+            <div class="foot">
+                <p class="banquan">
+                    2020年5月10日
+                </p>
+            </div>
+        </div>
+
+            </form>
+    </div>
+
+    </div>
+</div>
+
+</div>
+
+
+
+
+</body>
+
+<script>
+    $("#login").click(function (){
+        login();
+
+    })
+
+    function login(){
+
+        let obj={};
+        obj.user_name=$("input[name='username']").val();//用户名
+        obj.user_password=$("input[name='password']").val();//密码
+        obj.identify="1111";
+        obj.email="1111";
+
+        console.log("用户名");
+        console.log(obj.user_name);
+        console.log("密码");
+        console.log(obj.user_password);
+
+        // obj.user_name="jeremy";
+        // obj.user_password="password";
+
+        let description = "";
+        for(let i in obj){
+            let property=obj[i];
+            description+=i+" = "+property+"\n";
+        }
+        console.log(description);
+
+        $.ajax({
+            type: "POST",
+            url: "/login",
+            dataType: "json",
+            data:JSON.stringify(obj),
+            contentType : "application/json",
+            success: function (data) { //传回来的json
+
+                console.log(data.msg); //传回的信号
+
+
+
+                if(data.msg=="0"){
+                    console.log("admin login")
+                    // window.location.href="user.html"; //用户页面跳转,去掉注释即可跳转
+                }else if(data.msg == "1"){
+                    window.alert("user login"); //显示警告框
+                }else if(data.msg == "2"){
+                    window.alert("wrong pwd or user_id"); //显示警告框
+                }else{
+                    window.alert("unknown issue"); //显示警告框
+                }
+
+
+
+            },
+            error: function (e) {
+                console.log(e);
+            }
+        })
+    }
+
+
+
+
+
+
+</script>
+</html>
