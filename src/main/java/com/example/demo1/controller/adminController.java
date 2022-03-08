@@ -14,49 +14,7 @@ import java.sql.SQLException;
 @Controller
 public class adminController {
 
-//    @RequestMapping(path="/admin",method = RequestMethod.GET)
-//    public String user_html(){
-//
-//        return "forward:admin.html";
-//    }
 
-//    @RequestMapping(path = "/admin",method = RequestMethod.POST)
-//    @ResponseBody
-//    public JSONArray queryDB(@RequestBody(required=false) JSONObject json_search) throws SQLException {
-//
-//        JSONArray jsonArray = new JSONArray();
-//        System.out.println("当前登录用户id========================>"+loginController.USERID1);
-//        System.out.println(json_search);
-////        parseToSQL temp = new parseToSQL();
-////        jsonArray = temp.parse0(json_search);  //查阅所有书籍
-////        System.out.println(jsonArray);
-//
-//        JSONObject json1=new JSONObject();
-//        json1.put("book_id","222");
-//        json1.put("book_name","333");
-//        json1.put("author","4444");
-//        json1.put("collection_number","5555");
-//        json1.put("existing_number","6666");
-//        json1.put("price","5555");
-//        json1.put("publisher","66666");
-//        json1.put("introduction","77777");
-//        jsonArray.add(json1);
-//
-//        JSONObject json2=new JSONObject();
-//        json2.put("book_id","0000222");
-//        json2.put("book_name","0000333");
-//        json2.put("author","00004444");
-//        json2.put("collection_number","00005555");
-//        json2.put("existing_number","00006666");
-//        json2.put("price","0005555");
-//        json2.put("publisher","00066666");
-//        json2.put("introduction","0077777");
-//
-//        jsonArray.add(json2);
-//
-//        return jsonArray;
-//
-//    }
 
     @RequestMapping(path = "/admin", method = RequestMethod.POST)
     @ResponseBody
@@ -65,13 +23,15 @@ public class adminController {
         JSONArray jsonArray = new JSONArray();
 
 
+        System.out.print("---------------"+json_search);
         JSONObject tempJSON = new JSONObject();
-        tempJSON.put("kind", json_search.getString("kind"));
+        tempJSON.put("kind", json_search.getString("KIND"));
+        System.out.println("11111111111111111111111"+json_search.getString("kind"));
         tempJSON.put("id", "0");
 
         parseToSQL temp = new parseToSQL();
         jsonArray = temp.parse0(tempJSON);
-        System.out.println(jsonArray);
+        System.out.println("全部查询"+jsonArray);
 
         return jsonArray;
 
@@ -116,9 +76,9 @@ public class adminController {
 
     }
 
-    @RequestMapping(path = "/test", method = RequestMethod.POST) //borrow and return
+    @RequestMapping(path = "/delete", method = RequestMethod.POST) //borrow and return
     @ResponseBody
-    public String test(@RequestBody(required = false) JSONObject jsonObject) throws SQLException {
+    public String delete(@RequestBody(required = false) JSONObject jsonObject) throws SQLException {
 //● 操作id "id:3"
 //● 文献id objectID
 //● 文献类别(0:图书,1:论文) kind
@@ -132,7 +92,8 @@ public class adminController {
             jsonObject1.put("id", "3");
             jsonObject1.put("objectID", temp1);
             jsonObject1.put("IOD", 1);
-            jsonObject1.put("kind", 0);
+            jsonObject1.put("kind", jsonObject.getString("kind"));
+            System.out.println("11111111111111"+jsonObject.getString("kind"));
             temp2.parse(jsonObject1);
         }
 
@@ -143,7 +104,7 @@ public class adminController {
 
     @RequestMapping(path = "/1", method = RequestMethod.POST) //borrow and return
     @ResponseBody
-    public String test1(@RequestBody(required = false) JSONObject jsonObject) throws SQLException {
+    public String edit(@RequestBody(required = false) JSONObject jsonObject) throws SQLException {
 //● 操作id "id:3"
 //● 文献id objectID
 //● 文献类别(0:图书,1:论文) kind
@@ -164,13 +125,14 @@ public class adminController {
 //● 文献id objectID
 //● 文献类别(0:图书,1:论文) kind
 //● 文献的介绍 1.图书('id',''名字','作者','数量','数量','价格','出版社','介绍')  2-论文('id','名字','作者','时间','期刊会议名称','期号','卷号','页号','DOI')  分割号是逗号------合并成一个字符串 introduction 删除此项留空即可
-        System.out.println(jsonObject);
+        System.out.println("打印======================="+jsonObject);
         String book_id = jsonObject.getString("objectID");
         parseToSQL temp2 = new parseToSQL();
         JSONObject jsonObject1 = new JSONObject();
         jsonObject1.put("id", "4");
-        jsonObject1.put("objectID", jsonObject.getString("ObjectID"));
+        jsonObject1.put("objectID", jsonObject.getString("objectID"));
         jsonObject1.put("kind", jsonObject.getString("kind"));
+        System.out.println("===================================================="+jsonObject.getString("kind"));
         String intro = "";
         if(jsonObject.getString("kind").equals("0")){
             intro = "'"+jsonObject.getString("objectID")+
@@ -180,10 +142,19 @@ public class adminController {
                     jsonObject.getString("collection_number")+"','"+jsonObject.getString("price")+"','"+
                     jsonObject.getString("publisher")+"','"+
                     jsonObject.getString("introduction")+"'";
+            System.out.println("=+======="+intro);
+        }else if(jsonObject.getString("kind").equals("1")){
+            intro = "'"+jsonObject.getString("objectID")+
+                    "','"+jsonObject.getString("paper_title")+"','"+
+                    jsonObject.getString("author")+"','"+jsonObject.getString("date")+
+                    "','"+
+                    jsonObject.getString("jc_name")+"','"+jsonObject.getString("issue_number")+"','"+
+                    jsonObject.getString("volume_number")+"','"+
+                    jsonObject.getString("page_number")+"','"+
+                    jsonObject.getString("doi")+"'";
+            System.out.println("=+++++++++++++++++++++++++"+intro);
         }
-        else{
 
-        }
         jsonObject1.put("introduction", intro);
         System.out.println(jsonObject1);
         temp2.parse(jsonObject1);

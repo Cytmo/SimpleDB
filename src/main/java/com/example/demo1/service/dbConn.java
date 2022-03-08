@@ -54,7 +54,9 @@ public class dbConn {
             Statement statement = dbConnection.createStatement(); // Statement对象
             int rows; // 影响行数
             ResultSet rs; // 结果集合
+            System.out.println(SQLCmd);
             rows = statement.executeUpdate(SQLCmd);
+
             System.out.println("插入影响行数为：" + rows);
             return 0;
         } catch (SQLException e) {

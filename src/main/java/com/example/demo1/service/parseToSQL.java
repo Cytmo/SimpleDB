@@ -21,42 +21,42 @@ public class parseToSQL {
 
     }
 
-    public static void main(String[] args) throws SQLException {
-        String json_2 = "{\"id\":-1,\"user_id\":\"0\",\"pwd\":\"huawei+123\"}"; //管理员登录
-        String json_1 = "{\"id\":-2,\"user_id\":\"123456\",\"pwd\":\"123456\"}";          //注册
-        String json_22 = "{\"id\":-1,\"user_id\":\"123456\",\"pwd\":\"123456\"}"; //登录
-        String json0 = "{\"id\":0,\"kind\":\"0\"}";
-        String json1 = "{\"id\":1,\"userID\":\"11\",\"objectID\":\"1212\",\"number\":\"+10\"}"; //测试用户借还操作
-        String json2 = "{\"id\":2,\"objectID\":\"1212\",\"number\":\"-1\"}";//测试管理员增减操作
-        String json3 = "{\"id\":3,\"kind\":\"0\",\"objectID\":\"123456\"," +
-                "\"IOD\":\"0\",\"introduction\":\"'123456','dadada',\n" +
-                " 'fdhasjfhkj','323','45','$233','fdasfdsafdsa','cool'\"}";//测试插入操作
-        String json4 = "{\"id\":3,\"kind\":\"0\",\"objectID\":\"123456\",\"IOD\":\"1\",\"introduction\":\"\"}";//测试删除操作
-        String json5 = "{\"id\":4,\"kind\":\"0\",\"objectID\":\"123456\",\"introduction\":\"\"}";//测试删除操作
-        String json6 = "{\"id\":5,\"kind\":\"0\"}";
-        JSONObject jsonObj_2 = JSON.parseObject(json_2);
-        JSONObject jsonObj_22 = JSON.parseObject(json_22);
-        JSONObject jsonObj_1 = JSON.parseObject(json_1);
-        JSONObject jsonObj0 = JSON.parseObject(json0);
-        JSONObject jsonObj1 = JSON.parseObject(json1);
-        JSONObject jsonObj2 = JSON.parseObject(json2);
-        JSONObject jsonObj3 = JSON.parseObject(json3);
-        JSONObject jsonObj4 = JSON.parseObject(json4);
-        JSONObject jsonObj5 = JSON.parseObject(json5);
-        JSONObject jsonObj6 = JSON.parseObject(json6);
-        parseToSQL temp = new parseToSQL();
-        temp.parse(jsonObj1);
-        temp.parse(jsonObj6);
-//        temp.parse(jsonObj_22);
-//        temp.parse(jsonObj_1);
-//        temp.parse(jsonObj_22);
-//        temp.parse(jsonObj2);
-//        temp.parse(jsonObj3);
-//        temp.parse(jsonObj4);
-//        temp.parse(jsonObj_2);
-//        temp.closeConnection();
-
-    }
+//    public static void main(String[] args) throws SQLException {
+//        String json_2 = "{\"id\":-1,\"user_id\":\"0\",\"pwd\":\"huawei+123\"}"; //管理员登录
+//        String json_1 = "{\"id\":-2,\"user_id\":\"123456\",\"pwd\":\"123456\"}";          //注册
+//        String json_22 = "{\"id\":-1,\"user_id\":\"123456\",\"pwd\":\"123456\"}"; //登录
+//        String json0 = "{\"id\":0,\"kind\":\"0\"}";
+//        String json1 = "{\"id\":1,\"userID\":\"11\",\"objectID\":\"1212\",\"number\":\"+10\"}"; //测试用户借还操作
+//        String json2 = "{\"id\":2,\"objectID\":\"1212\",\"number\":\"-1\"}";//测试管理员增减操作
+//        String json3 = "{\"id\":3,\"kind\":\"0\",\"objectID\":\"123456\"," +
+//                "\"IOD\":\"0\",\"introduction\":\"'123456','dadada',\n" +
+//                " 'fdhasjfhkj','323','45','$233','fdasfdsafdsa','cool'\"}";//测试插入操作
+//        String json4 = "{\"id\":3,\"kind\":\"0\",\"objectID\":\"123456\",\"IOD\":\"1\",\"introduction\":\"\"}";//测试删除操作
+//        String json5 = "{\"id\":4,\"kind\":\"0\",\"objectID\":\"123456\",\"introduction\":\"\"}";//测试删除操作
+//        String json6 = "{\"id\":5,\"kind\":\"0\"}";
+//        JSONObject jsonObj_2 = JSON.parseObject(json_2);
+//        JSONObject jsonObj_22 = JSON.parseObject(json_22);
+//        JSONObject jsonObj_1 = JSON.parseObject(json_1);
+//        JSONObject jsonObj0 = JSON.parseObject(json0);
+//        JSONObject jsonObj1 = JSON.parseObject(json1);
+//        JSONObject jsonObj2 = JSON.parseObject(json2);
+//        JSONObject jsonObj3 = JSON.parseObject(json3);
+//        JSONObject jsonObj4 = JSON.parseObject(json4);
+//        JSONObject jsonObj5 = JSON.parseObject(json5);
+//        JSONObject jsonObj6 = JSON.parseObject(json6);
+//        parseToSQL temp = new parseToSQL();
+//        temp.parse(jsonObj1);
+//        temp.parse(jsonObj6);
+////        temp.parse(jsonObj_22);
+////        temp.parse(jsonObj_1);
+////        temp.parse(jsonObj_22);
+////        temp.parse(jsonObj2);
+////        temp.parse(jsonObj3);
+////        temp.parse(jsonObj4);
+////        temp.parse(jsonObj_2);
+////        temp.closeConnection();
+//
+//    }
 
     public String parse(JSONObject jsonObj) throws SQLException {
         String result = null;
@@ -304,7 +304,7 @@ public class parseToSQL {
         String SQLCmd = ";";
         String id = "book_id";
         if (dbname != "books") id = "paper_id";
-        SQLCmd = "DELETE FROM " + dbname + " WHERE " + id + " = " + objectID;
+        SQLCmd = "DELETE FROM " + dbname + " WHERE " + id + " = " + "'"+objectID+ "'";
         System.out.println(SQLCmd);
         int deleteResult = conn.deleteFromDB(SQLCmd);
         return deleteResult;

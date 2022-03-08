@@ -7,19 +7,26 @@
     <link rel="stylesheet" href="css/bootstrap.min.css">
     <link rel="stylesheet" href="css/bootstrap-table.min.css">
     <link rel="stylesheet" href="css/bootstrap-editable.css" type="text/css">
+    <link rel="shortcut icon" href="./favicon.ico">
     <title>管理员用户界面</title>
 </head>
 
 <body>
 
-    <script>
 
-    </script>
     <div class="container">
+
         <div>
+
+            <a href="./admin_paper.html">
+                <button class="btn btn-default">论文板块</button>
+            </a>
+
             <button id="build" class="btn btn-default">查询</button>
             <button id="delete" class="btn btn-default">删除</button>
             <button id="blank" class="btn btn-default">新增</button>
+
+
         </div>
         <div class=table-responsive">
             <table id="table" class="table text-nowrap" data-toggle="table" data-show-columns="true" data-search="true"
@@ -358,6 +365,7 @@
                     console.log(str1);
                     let obj={};
                     obj.bookID=str1;//用户名
+                    obj.kind="0";//用户名
 
                     let postDelete=JSON.stringify(obj);
 
@@ -365,7 +373,7 @@
 
                     $.ajax({
                         type: "post",
-                        url: "/test" ,    //填写数据库url
+                        url: "/delete" ,    //填写数据库url
                         dataType: "json",
                         data: postDelete,
                         contentType : "application/json",
@@ -373,6 +381,7 @@
                         success: function (data) {
                             console.log(data);
                             console.log("success");
+                            build();
 
                             // build();
                             // // alert("删除成功");
@@ -400,52 +409,57 @@
             else if (s.length == 4) {
                 alert("不能同时选择两种编辑方式！")
             }
-            let edit_id = s[0].toString();
-            let book_id = $("#book_id").val();
-            let book_name = $("#book_name").val();
-            let author = $("#author").val();
-            let collection_number = $("#collection_number").val();
-            let existing_number = $("#existing_number").val();
-            let price = $("#price").val();
-            let publisher = $("#publisher").val();
-            let introduction = $("#introduction").val();
-            console.log(book_id,book_name,author,collection_number,author,collection_number,existing_number,price,publisher,introduction);
+            else{
+                let edit_id = s[0].toString();
+                let book_id = $("#book_id").val();
+                let book_name = $("#book_name").val();
+                let author = $("#author").val();
+                let collection_number = $("#collection_number").val();
+                let existing_number = $("#existing_number").val();
+                let price = $("#price").val();
+                let publisher = $("#publisher").val();
+                let introduction = $("#introduction").val();
+                console.log(book_id,book_name,author,collection_number,author,collection_number,existing_number,price,publisher,introduction);
 
-            let obj12={};
-            obj12.id          =4          ;
-            obj12.objectID          =book_id          ;
-            obj12.kind             = 0;
-            obj12.book_name        =book_name        ;
-            obj12.author           =author           ;
-            obj12.collection_number=collection_number;
-            obj12.existing_number  =existing_number  ;
-            obj12.price            =price            ;
-            obj12.publisher        =publisher        ;
-            obj12.introduction     =introduction     ;
-            console.log(obj12);
+                let obj12={};
+                obj12.id          =4          ;
+                obj12.objectID          =book_id          ;
+                obj12.kind             = 0;
+                obj12.book_name        =book_name        ;
+                obj12.author           =author           ;
+                obj12.collection_number=collection_number;
+                obj12.existing_number  =existing_number  ;
+                obj12.price            =price            ;
+                obj12.publisher        =publisher        ;
+                obj12.introduction     =introduction     ;
+                console.log(obj12);
 
-            let postModify=JSON.stringify(obj12);
+                let postModify=JSON.stringify(obj12);
 
-            console.log(postModify);
+                console.log(postModify);
 
-            // 下面填写ajax报文
+                // 下面填写ajax报文
                 $.ajax({
-                type: "post",
-                url: "/1" ,  //填写数据库url
-                dataType: "json",
-                contentType : "application/json",
-                data:postModify,
-                success: function (data) {
-                    // $("#table").bootstrapTable('refresh');
-                    // alert("提交成功");
-                    // location = location;
-                    console.log(data);
-                    console.log("success");
-                },
-                error: function () {
-                    // toastr.error('Error');
-                }
-            })
+                    type: "post",
+                    url: "/test" ,  //填写数据库url
+                    dataType: "json",
+                    contentType : "application/json",
+                    data:postModify,
+                    success: function (data) {
+                        // $("#table").bootstrapTable('refresh');
+                        // alert("提交成功");
+                        // location = location;
+                        console.log(data);
+                        build();
+                        console.log("success");
+                    },
+                    error: function () {
+                        // toastr.error('Error');
+                    }
+                })
+
+            }
+
 
         })
 

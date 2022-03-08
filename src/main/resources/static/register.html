@@ -15,6 +15,7 @@
     <link href="css/index.css" rel="stylesheet" />
 
     <link href="fonts/iconfont.css" rel="stylesheet" />
+    <link rel="shortcut icon" href="./favicon.ico">
 
     <script src="vendor/jquery/jquery-3.2.1.min.js"></script>
 
@@ -117,7 +118,7 @@
 
                     console.log(data.msg); //传回的信号
                     console.log("sucess");
-                    alert("注册成功,3秒返回登录页面");
+                    alert(data.msg);
                     setTimeout(function(){
                         console.log("注册成功,3秒后返回登录页面");
                     },3000);

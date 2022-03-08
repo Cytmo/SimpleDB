@@ -14,6 +14,9 @@ import java.sql.SQLException;
 
 @Controller
 public class userController {
+
+
+
     @RequestMapping(path = "/user",method = RequestMethod.POST)
     @ResponseBody
     public JSONArray queryDB(@RequestBody(required=false) JSONObject json_search) throws SQLException {
