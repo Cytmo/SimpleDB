@@ -61,6 +61,7 @@ public class parseToSQL {
     public String parse(JSONObject jsonObj) throws SQLException {
         String result = null;
         int kind = jsonObj.getIntValue("id");
+        System.out.println(jsonObj);
         switch (kind) {
             case -2:
                 result = String.valueOf(parse_1(jsonObj, false)); // 注册
@@ -78,6 +79,7 @@ public class parseToSQL {
                 result = parse2(jsonObj);
                 break;
             case 3:
+                System.out.println("Running 3");
                 result = String.valueOf(parse3(jsonObj));
                 break;
             case 4:
@@ -124,7 +126,10 @@ public class parseToSQL {
             SQLCmd = "INSERT INTO users VALUES(" + "'" + id + "'" + "," + "'" + pwd + "'" + ",'1',' ' );";
             System.out.println(SQLCmd);
             result = conn.insertToDB(SQLCmd);
-            if (result == 0) System.out.println("新用户注册成功，id = " + id);
+            if (result == 0) {
+                System.out.println("新用户注册成功，id = " + id);
+                return 1;
+            }
             else {
                 System.out.println("注册失败，用户已存在, id = " + id);
             }
@@ -226,7 +231,6 @@ public class parseToSQL {
     }
 
     public int parse3(JSONObject jsonObj) throws SQLException {
-        String result = null;
         int kind = jsonObj.getIntValue("kind");
         String dbname = "books";
         if (kind == 1) dbname = "papers";
@@ -234,6 +238,7 @@ public class parseToSQL {
         String objectID = jsonObj.getString("objectID");
         int number = jsonObj.getIntValue("number");
         int IOD = jsonObj.getIntValue("IOD");
+        System.out.println(IOD+"1111111111111111"+objectID);
         if (IOD == 0) {
             String introduction = jsonObj.getString("introduction");
             System.out.println("INSERT RESULT IS " + insertIntoDB(dbname, introduction, objectID));

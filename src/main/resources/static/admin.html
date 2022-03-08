@@ -412,8 +412,9 @@
             console.log(book_id,book_name,author,collection_number,author,collection_number,existing_number,price,publisher,introduction);
 
             let obj12={};
-            obj12.edit_id          =edit_id          ;
-            obj12.book_id          =book_id          ;
+            obj12.id          =4          ;
+            obj12.objectID          =book_id          ;
+            obj12.kind             = 0;
             obj12.book_name        =book_name        ;
             obj12.author           =author           ;
             obj12.collection_number=collection_number;
@@ -430,7 +431,7 @@
             // 下面填写ajax报文
                 $.ajax({
                 type: "post",
-                url: "/test" ,  //填写数据库url
+                url: "/1" ,  //填写数据库url
                 dataType: "json",
                 contentType : "application/json",
                 data:postModify,

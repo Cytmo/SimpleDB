@@ -26,24 +26,22 @@ public class registerController {
     @RequestMapping(path = "/register",method = RequestMethod.POST)
     @ResponseBody
     public JSONObject insertUserInfo(@RequestBody(required=false) users user) throws SQLException {
-//        System.out.println(user);
-//        System.out.println(user.getUser_name());
-//        JSONObject json = new JSONObject();
-//
-//
-//        json.put("id","-1");
-//        json.put("user_id",user.getUser_name());
-//        json.put("pwd",user.getUser_password());
-//
-//        String ret = temp.parse(json);
-//        JSONObject result = new JSONObject();
-//        result.put("msg",ret);
-//        System.out.println(result);
-//        return result;
+        System.out.println(user);
+        System.out.println(user.getUser_name());
+        JSONObject json = new JSONObject();
 
-        JSONObject json1=new JSONObject();
-        json1.put("msg","yes");
-        return json1;
+
+        json.put("id","-2");
+        json.put("user_id",user.getUser_name());
+        json.put("pwd",user.getUser_password());
+        json.put("email",user.getEmail());
+
+        String ret = temp.parse(json);
+        JSONObject result = new JSONObject();
+        //IFELSE
+        result.put("msg",ret);
+        System.out.println(result);
+        return result;
     }
 }
 
