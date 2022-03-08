@@ -1,6 +1,5 @@
 package com.example.demo1.controller;
 
-
 import com.huawei.shade.com.alibaba.fastjson.JSONArray;
 import com.huawei.shade.com.alibaba.fastjson.JSONObject;
 import org.springframework.stereotype.Controller;
@@ -13,8 +12,15 @@ import com.example.demo1.service.*;
 import java.sql.SQLException;
 
 @Controller
-public class userController {
-    @RequestMapping(path = "/user",method = RequestMethod.POST)
+public class adminController {
+
+//    @RequestMapping(path="/admin",method = RequestMethod.GET)
+//    public String user_html(){
+//
+//        return "forward:admin.html";
+//    }
+
+    @RequestMapping(path = "/admin",method = RequestMethod.POST)
     @ResponseBody
     public JSONArray queryDB(@RequestBody(required=false) JSONObject json_search) throws SQLException {
 
@@ -49,6 +55,55 @@ public class userController {
         jsonArray.add(json2);
 
         return jsonArray;
+
+    }
+
+
+    @RequestMapping(path = "/queryRecords",method = RequestMethod.POST)
+    @ResponseBody
+    public JSONArray queryRecords(@RequestBody(required=false) String str) throws SQLException {
+
+        parseToSQL temp = new parseToSQL();
+        //test
+//        String json1 = "{\"id\":1,\"userID\":\"11\",\"objectID\":\"1212\",\"number\":\"+10\"}"; //测试用户借还操作
+//        JSONObject jsonObj1 =  JSON.parseObject(json1);
+//        temp.parse(jsonObj1);
+        //test
+        JSONArray jsonArray = new JSONArray();
+        JSONObject tempJSON = new JSONObject();
+
+        int id = Integer.parseInt(temp.user_id);
+        tempJSON.put("id","5");
+        if(id == 0) tempJSON.put("kind","0");
+        else tempJSON.put("kind","1");
+        jsonArray = temp.parse5(tempJSON);
+        System.out.println(jsonArray);
+
+        return jsonArray;
+
+    }
+
+
+    @RequestMapping(path = "/br",method = RequestMethod.POST) //borrow and return
+    @ResponseBody
+    public String br(@RequestBody(required=false) JSONObject jsonObject) throws SQLException {
+        
+        parseToSQL temp = new parseToSQL();
+        String jsonArray = temp.parse(jsonObject);
+        System.out.println(jsonArray);
+
+        return jsonArray;
+
+    }
+
+    @RequestMapping(path = "/test",method = RequestMethod.POST) //borrow and return
+    @ResponseBody
+    public JSONObject test(@RequestBody(required=false) JSONObject jsonObject) throws SQLException {
+
+       JSONObject json1=new JSONObject();
+       json1.put("msg","yes");
+
+        return json1;
 
     }
 }

@@ -64,7 +64,7 @@
                         <!--&lt;!&ndash;								</div>&ndash;&gt;-->
                         <!--							</div>-->
                         <button type="button" class="login" id="login1">注册</button>
-                        <button type="button" class="login" id="register1">返回登录页面</button>
+                        <button type="button" class="login" id="register1">返回</button>
                     </form>
                 </div>
             </div>
@@ -97,10 +97,13 @@
 
 
 
+
         console.log("用户名");
         console.log(obj.user_name);
         console.log("密码");
         console.log(obj.user_password);
+        console.log("密码");
+        console.log($("input[id='password2']").val());
 
         $.ajax({
             type: "POST",
@@ -110,8 +113,19 @@
             contentType : "application/json",
             success: function (data) { //传回来的json
 
-                console.log(data.msg); //传回的信号
-                console.log("sucess");
+                if($("input[id='password1']").val()==$("input[id='password2']").val()){
+
+                    console.log(data.msg); //传回的信号
+                    console.log("sucess");
+                    alert("注册成功,3秒返回登录页面");
+                    setTimeout(function(){
+                        console.log("注册成功,3秒后返回登录页面");
+                    },3000);
+                    window.location.href="login.html";
+
+                }
+
+
 
 
                 // if(data.msg=="0"){
@@ -134,12 +148,6 @@
 
 
     }
-
-
-
-
-
-
 
 
 </script>

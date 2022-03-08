@@ -10,6 +10,7 @@ import java.sql.SQLException;
 
 @Controller
 public class loginController {
+
     parseToSQL temp = new parseToSQL();
 
     public loginController() throws SQLException {
@@ -37,6 +38,7 @@ public class loginController {
 //        }
 //
 //    }
+    public  static   String USERID1;
 
     @RequestMapping(path = "/login",method = RequestMethod.POST)
     @ResponseBody
@@ -44,6 +46,10 @@ public class loginController {
         System.out.println(user);
         System.out.println(user.getUser_name());
         JSONObject json = new JSONObject();
+
+        USERID1=user.getUser_name();
+        System.out.println("当前登录用户id========================>"+user.getUser_name());
+
 
 
         json.put("id","-1");

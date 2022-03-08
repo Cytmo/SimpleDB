@@ -102,10 +102,11 @@
 
 				if(data.msg=="0"){
 					console.log("admin login")
-					window.alert("admin login"); //显示警告框
-					// window.location.href="user.html"; //用户页面跳转,去掉注释即可跳转
+					// window.alert("admin login"); //显示警告框
+					 window.location.href="admin.html"; //管理员页面跳转,去掉注释即可跳转
 				}else if(data.msg == "1"){
 					window.alert("user login"); //显示警告框
+					window.location.href="user.html"; //管理员页面跳转,去掉注释即可跳转
 				}else if(data.msg == "2"){
 					window.alert("wrong pwd or user_id"); //显示警告框
 				}else{
