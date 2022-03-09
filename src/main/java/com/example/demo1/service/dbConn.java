@@ -70,6 +70,7 @@ public class dbConn {
         //kind 0 books 1 papers 2 records
         Statement statement = dbConnection.createStatement(); // Statement对象
         ResultSet rs; // 结果集合
+        System.out.println(SQLCmd);
         rs = statement.executeQuery(SQLCmd);
         Statement statement1 = dbConnection.createStatement();
         ResultSet rs1;

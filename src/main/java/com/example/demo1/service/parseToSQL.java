@@ -314,7 +314,7 @@ public class parseToSQL {
         String SQLCmd = ";";
         String id = "book_id";
         if (dbname != "books") id = "paper_id";
-        SQLCmd = "DELETE FROM " + dbname + " WHERE " + id + " = " + "'"+objectID+ "'";
+        SQLCmd = "DELETE FROM " + dbname + " WHERE " + id + " = " + "'"+objectID+ "';";
         System.out.println(SQLCmd);
         int deleteResult = conn.deleteFromDB(SQLCmd);
         return deleteResult;

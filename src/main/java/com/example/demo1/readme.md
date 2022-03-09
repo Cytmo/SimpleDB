@@ -21,13 +21,11 @@
 
 
 (1)sql table 就是表结构文件中的每一个表格。
-(2)POJO = Plain Ordinary Java Object，
-   每一个表格直接对应的Java对象。有一些hibernate注释需要掌握。
+(2)POJO = Plain Ordinary Java Object，每一个表格直接对应的Java对象。有一些hibernate注释需要掌握。
 (3)DAO = Data Access Object，面向对象的数据库接口 interface。继承自JpaRepository<T,Integer>，不需要用到的功能就不用写。
 (4)Service 业务层，需要用到的对数据的增删改查分页等功能都写在了这里，等待Controller控制层的调用。相当于一个函数库。
 (5)Controller 控制层，控制页面之间的跳转；与html发生数据交换，决定要调用哪些Service 业务层中的函数。
-(6)html 决定了最终显示出来的界面，它可以调用Controller控制层中的函数，
-   也可以把Controller控制层提供的数据显示在页面上。
+(6)html 决定了最终显示出来的界面，它可以调用Controller控制层中的函数，也可以把Controller控制层提供的数据显示在页面上。
    写这个html需要学习 html/css/JavaScript/JSON/Vue.js等相关知识。
 
 
@@ -42,12 +40,13 @@
    |__css：
    |__img：
    |__font：
+   |__XXX.html等等
    |__等等
 |_template：存放网页模板，比如thymeleaf/freemarker模板等
    |__header
    |__sidebar
    |__bottom
-   |__XXX.html等等
+   |__等
 |_application.yml       基本配置文件
 |_application-dev.yml   开发环境配置文件
 |_application-test.yml  测试环境配置文件

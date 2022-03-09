@@ -42,7 +42,7 @@ public class loginController {
 
     @RequestMapping(path = "/login",method = RequestMethod.POST)
     @ResponseBody
-    public JSONObject insertUserInfo(@RequestBody(required=false) users user) throws SQLException {
+    public JSONObject login(@RequestBody(required=false) users user) throws SQLException {
         System.out.println(user);
         System.out.println(user.getUser_name());
         JSONObject json = new JSONObject();

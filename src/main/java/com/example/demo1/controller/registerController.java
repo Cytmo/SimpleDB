@@ -25,7 +25,7 @@ public class registerController {
 
     @RequestMapping(path = "/register",method = RequestMethod.POST)
     @ResponseBody
-    public JSONObject insertUserInfo(@RequestBody(required=false) JSONObject user) throws SQLException {
+    public JSONObject register(@RequestBody(required=false) JSONObject user) throws SQLException {
         System.out.println("++++++++++++++++++++++"+user);
 //        System.out.println(user.getUser_name());
         JSONObject json = new JSONObject();

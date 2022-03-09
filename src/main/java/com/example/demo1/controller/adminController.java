@@ -52,7 +52,7 @@ public class adminController {
         JSONArray jsonArray = new JSONArray();
         JSONObject tempJSON = new JSONObject();
 
-        int id = Integer.parseInt(temp.user_id);
+        long id = Long.parseLong(parseToSQL.user_id);
         tempJSON.put("id", "5");
         if (id == 0) tempJSON.put("kind", "0");
         else tempJSON.put("kind", "1");
@@ -137,14 +137,15 @@ public class adminController {
         if(jsonObject.getString("kind").equals("0")){
             intro = "'"+jsonObject.getString("objectID")+
                     "','"+jsonObject.getString("book_name")+"','"+
-                    jsonObject.getString("author")+"','"+jsonObject.getString("collection_number")+
+                    jsonObject.getString("author")+"','"+
+            jsonObject.getString("shelf") +"','"+
+                    jsonObject.getString("type")+"','"+jsonObject.getString("collection_number")+
                 "','"+
                     jsonObject.getString("collection_number")+"','"+
                     jsonObject.getString("price")+"','"+
                     jsonObject.getString("publisher")+"','"+
-                    jsonObject.getString("introduction")+"','"+
-                    jsonObject.getString("shelf")+"','"+
-                    jsonObject.getString("type")+"'";
+                    jsonObject.getString("introduction")
+                    +"'";
             System.out.println("=+======="+intro);
         }else if(jsonObject.getString("kind").equals("1")){
             intro = "'"+jsonObject.getString("objectID")+

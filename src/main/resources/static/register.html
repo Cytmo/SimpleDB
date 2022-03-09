@@ -46,7 +46,7 @@
                     <form>
                         <div class="form-group mar_b">
                             <span class="iconfont icon-Profile icon_p"></span>
-                            <input type="email" class="form-control icon-user" id="username1" placeholder="请输入您的用户名">
+                            <input type="email" class="form-control icon-user" id="username1" placeholder="请输入您的学号">
 
                         </div>
                         <div class="form-group mar_b">
@@ -139,8 +139,8 @@
 
                     },3000);
 
-                    if(data.msg=="0"){
-                        alert("注册成功,3秒后返回登录页面");
+                    if(data.msg==="1"){
+                        alert($("input[id='stuName']").val()+"注册成功,3秒后返回登录页面");
                         window.location.href="login.html";
                     }else{
                         alert("用户已存在, 注册失败, 更换用户名进行注册");

@@ -112,10 +112,10 @@
 
 				if(data.msg=="0"){
 					console.log("admin login")
-					// window.alert("admin login"); //显示警告框
+					window.alert("管理员登录"); //显示警告框
 					window.location.href="admin_book.html"; //管理员页面跳转,去掉注释即可跳转
 				}else if(data.msg == "1"){
-					console.log("user login"); //显示警告框
+					window.alert("普通用户登录"); //显示警告框
 					window.location.href="user_book.html"; //管理员页面跳转,去掉注释即可跳转
 				}else if(data.msg == "2"){
 					window.alert("用户名或者密码错误,请重新输入"); //显示警告框
