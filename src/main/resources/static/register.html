@@ -19,6 +19,15 @@
 
     <script src="vendor/jquery/jquery-3.2.1.min.js"></script>
 
+    <style>
+        #table tr:nth-child(even){
+            background: #fafafa;
+        }
+        #table th{
+            background: #efefef;
+        }
+    </style>
+
 </head>
 
 <body style="height:100%;">
@@ -127,9 +136,19 @@
                     console.log("sucess");
                     // alert(data.msg);
                     setTimeout(function(){
-                        // alert("注册成功,3秒后返回登录页面");
+
                     },3000);
-                    // window.location.href="login.html";
+
+                    if(data.msg=="0"){
+                        alert("注册成功,3秒后返回登录页面");
+                        window.location.href="login.html";
+                    }else{
+                        alert("用户已存在, 注册失败, 更换用户名进行注册");
+                    }
+
+
+
+
 
 
 

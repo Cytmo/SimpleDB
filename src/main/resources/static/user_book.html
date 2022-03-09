@@ -7,22 +7,39 @@
     <link rel="stylesheet" href="./css/bootstrap-table.min.css">
     <link rel="stylesheet" href="./css/bootstrap-editable.css" type="text/css">
     <link rel="shortcut icon" href="./favicon.ico">
+
+    <style>
+        #table tr:nth-child(even){
+            background: #fafafa;
+        }
+        #table th{
+            background: #efefef;
+        }
+    </style>
 </head>
 <body>
 
 <script>
 
 </script>
+<div class="back">
+
 <div class="container">
-    <div>
-        <button id="build" class="btn btn-default">Build</button>
+    <div style="margin-top: 15px">
+
         <a href="./user_paper.html">
-            <button class="btn btn-default">论文板块</button>
+            <button class="btn btn-default" style="margin-right:  20px ;width: 120px ;background-color: #7ED321;height: 36px;color: #FFFFFF">论文板块</button>
 
         </a>
         <a href="./user_record.html">
-            <button class="btn btn-default">借阅记录</button>
+            <button class="btn btn-default" style="margin-right:  20px ;width: 120px ;background-color: #7ED321;height: 36px;color: #FFFFFF">借阅记录</button>
         </a>
+        <a href="./login.html">
+            <button class="btn btn-default" style="margin-right:  20px ;width: 120px ;float: right">退出</button>
+        </a>
+
+        <p></p>
+        <button id="build" class="btn btn-default" style="margin-right:  20px ;width: 80px ;background-color: #168bef;height: 36px;color: #FFFFFF">查阅</button>
         <!--<button id="delete" class="btn btn-default">Delete</button>-->
         <!--<button id="blank" class="btn btn-default">Add a blank line</button>-->
     </div>
@@ -53,6 +70,7 @@
             </thead>
         </table>
     </div>
+</div>
 </div>
 
 <style>
@@ -212,8 +230,10 @@
                 // build();
             },
             error: function () {
-                alert("错误");
+                // alert("错误");
+                alert("查询失败,请重新查询");
             }
+
         });
 
 
@@ -416,9 +436,7 @@
                         // location = location;
                     },
                     error: function () {
-                        console.log('Error');
-                    },
-                    complete: function () {
+                        alert("借阅失败,请重新操作");
                     }
                 })
 

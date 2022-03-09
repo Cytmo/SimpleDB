@@ -6,30 +6,51 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="css/bootstrap.min.css">
     <link rel="stylesheet" href="css/bootstrap-table.min.css">
+
     <link rel="stylesheet" href="css/bootstrap-editable.css" type="text/css">
     <link rel="shortcut icon" href="./favicon.ico">
+    <link rel="stylesheet" href="css/button.css">
     <title>管理员用户界面</title>
+    <style>
+        #table tr:nth-child(even){
+            background: #fafafa;
+        }
+        #table th{
+            background: #efefef;
+        }
+    </style>
 </head>
 
 <body>
 
-
+<div class="back">
     <div class="container">
 
-        <div>
+        <div style="margin-top: 15px">
+
+
 
             <a href="./admin_paper.html">
-                <button class="btn btn-default">论文板块</button>
+
+                <button class="btn btn-default" style="margin-right:  20px ;width: 120px ;background-color: #7ED321;height: 36px;color: #FFFFFF">论文板块</button>
             </a>
+
+
             <a href="./admin_record.html">
-                <button class="btn btn-default">借阅记录</button>
+                <button class="btn btn-default" style="margin-right:  20px ;width: 120px ;background-color: #7ED321;height: 36px;color: #FFFFFF">图书借阅记录</button>
+            </a>
+            <a href="./login.html">
+                <button class="btn btn-default" style="margin-right:  20px ;width: 80px ;background-color: #707376;height: 36px;color: #FFFFFF;float: right">退出</button>
             </a>
 
         </div>
-<div>
-            <button id="build" class="btn btn-default">查询</button>
-            <button id="delete" class="btn btn-default">删除</button>
-            <button id="blank" class="btn btn-default">新增</button>
+        <div>
+            <p> </p>
+        </div>
+        <div style="margin-top: 5px">
+            <button id="build" class="btn btn-default" style="margin-right:  20px ;width: 80px ;background-color: #168bef;height: 36px;color: #FFFFFF">查询</button>
+            <button id="delete" class="btn btn-default" style="margin-right:  20px ;width: 80px ;background-color: #168bef;height: 36px;color: #FFFFFF">删除</button>
+            <button id="blank" class="btn btn-default" style="margin-right:  20px ;width: 80px ;background-color: #168bef;height: 36px;color: #FFFFFF">新增</button>
 
 
 
@@ -54,6 +75,7 @@
                 </thead>
             </table>
         </div>
+    </div>
     </div>
 
     <style>
@@ -297,13 +319,16 @@
                 success: function (data_json) {
                     // console.log(data_json),
                         data =data_json,
+
+
+
                     $('#table').bootstrapTable('destroy').bootstrapTable({
                         columns: columns,
                         data: data
                     });
                 },
                 error: function () {
-                    alert("错误");
+                    alert("查询失败,请重新查询");
                 }
             });
 
@@ -314,6 +339,7 @@
                 data: data,
                 clickToSelect: true,
                 showPaginationSwitch: true,
+
 
             });
 
@@ -423,7 +449,7 @@
                             // location = location;
                         },
                         error: function () {
-                            // alert('无法删除');
+                            alert('删除失败, 请重新删除');
                         }
                     })
                 }
@@ -493,7 +519,7 @@
                         console.log("success");
                     },
                     error: function () {
-                        // toastr.error('Error');
+                        alert("更改失败, 请重新更改");
                     }
                 })
 

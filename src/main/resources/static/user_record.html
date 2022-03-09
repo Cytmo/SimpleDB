@@ -8,18 +8,38 @@
     <link rel="stylesheet" href="css/bootstrap-table.min.css">
     <link rel="stylesheet" href="css/bootstrap-editable.css" type="text/css">
     <link rel="shortcut icon" href="./favicon.ico">
+
+    <style>
+        #table tr:nth-child(even){
+            background: #fafafa;
+        }
+        #table th{
+            background: #efefef;
+        }
+    </style>
     <title>管理员用户界面</title>
 </head>
 
 <body>
 
 
+<div class="back">
+
 <div class="container">
 
-    <div>
+    <div style="margin-top: 15px">
+        <a href="./user_book.html">
+            <button class="btn btn-default" style="margin-right:  20px ;width: 120px ;background-color: #7ED321;height: 36px;color: #FFFFFF">图书板块</button>
+        </a>
+        <a href="./login.html">
+            <button class="btn btn-default" style="margin-right:  20px ;width: 120px ;float: right">退出</button>
+        </a>
+    <p>
+
+    </p>
 
 
-        <button id="build" class="btn btn-default">查询</button>
+        <button id="build" class="btn btn-default" style="margin-right:  20px ;width: 80px ;background-color: #168bef;height: 36px;color: #FFFFFF">查询</button>
 
 
     </div>
@@ -38,6 +58,8 @@
             </thead>
         </table>
     </div>
+</div>
+
 </div>
 
 
@@ -157,9 +179,10 @@
                         data: data
                     });
                 // build();
+                alert("请前往查询界面进行归还操作");
             },
             error: function () {
-                alert("错误");
+                alert("查询失败,请重新查询");
             }
         });
 
