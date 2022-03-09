@@ -105,6 +105,8 @@ public class parseToSQL {
         String id = jsonObj.getString("user_id");
         String pwd = jsonObj.getString("pwd");
         String SQLCmd = ";";
+        String stuID = jsonObj.getString("stuID");
+
         int result = 2;
         if (if_login) {
             SQLCmd = "SELECT * FROM users WHERE user_name = " + "'" + id + "'" + ";";
@@ -123,7 +125,8 @@ public class parseToSQL {
                 return 2;
             }
         } else {
-            SQLCmd = "INSERT INTO users VALUES(" + "'" + id + "'" + "," + "'" + pwd + "'" + ",'1',' ' );";
+
+            SQLCmd = "INSERT INTO users VALUES(" + "'" + id + "'" + "," + "'" + pwd + "'" +",'"+1+ "','"+stuID+"');";
             System.out.println(SQLCmd);
             result = conn.insertToDB(SQLCmd);
             if (result == 0) {
@@ -170,9 +173,10 @@ public class parseToSQL {
     */
 
     public String parse1(JSONObject jsonObj) throws SQLException {
-        String userid = jsonObj.getString("userID");
+        String userid =user_id;
         String objectID = jsonObj.getString("objectID");
         String number = jsonObj.getString("number");
+        String book_name = jsonObj.getString("book_name");
         String dbName = "books";
         Date time = new java.sql.Date(new java.util.Date().getTime());
         String querySQLCmd = "SELECT * FROM records WHERE user_id = " + "'" + userid + "' and object_id= '" + objectID + "';";
@@ -182,7 +186,7 @@ public class parseToSQL {
         System.out.println(temp);
         if (temp.equals(new JSONArray())) {
             //借 没有借过的
-            String SQLCmd = "INSERT INTO records VALUES" + "('" + user_id + "','" + objectID + "','" + Integer.parseInt(number) + "','" + time + "');";
+            String SQLCmd = "INSERT INTO records VALUES" + "('" + userid + "','" + objectID + "','" + Integer.parseInt(number) + "','" + time + "','" + book_name+ "');";
             System.out.println(SQLCmd);
             conn.insertToDB(SQLCmd);
             return updateExisting(objectID, dbName, Integer.parseInt(number));
@@ -192,8 +196,9 @@ public class parseToSQL {
             int borrowed = Integer.parseInt(temp.getJSONObject(0).getString("number"));
             int num =0;
             System.out.println("number is "+ number);
-            if(number.charAt(0)=='-') num = -Integer.parseInt(number);
-            else if(number.charAt(0)=='+'){
+            if(number.charAt(0)=='-') {
+                num = -Integer.parseInt(number);
+            } else if(number.charAt(0)=='+'){
                 num = Integer.parseInt(number);
             }
             else{
@@ -201,17 +206,20 @@ public class parseToSQL {
                 return "Illegal borrow/return number format";
             }
             int currentNum= borrowed + num;
-            if(currentNum <0) return "Illegal return quantity";
+            if(currentNum >0) {
+                return "Illegal return quantity";
+            }
 
             String SQLCmdToDelete = "DELETE FROM records WHERE user_id = " + "'" + userid + "' and object_id= '" + objectID + "';";
 
-            String SQLCmdToInsert = "INSERT INTO records VALUES" + "('" + user_id + "','" + objectID + "','" + currentNum + "','" + time + "');";
+            String SQLCmdToInsert = "INSERT INTO records VALUES" + "('" + user_id + "','" + objectID + "','" + currentNum + "','" + time + "','" + book_name+ "');";
             System.out.println( SQLCmdToDelete );
             System.out.println( SQLCmdToInsert );
             conn.deleteFromDB(SQLCmdToDelete);
             conn.insertToDB(SQLCmdToInsert);
+            return updateExisting(objectID, dbName, Integer.parseInt(number));
+
         }
-        return "0";
 
     }
     /*
@@ -274,6 +282,8 @@ public class parseToSQL {
             conn.QueryDB(SQLCmd, 2);
         } catch (Exception e) {
             System.out.println("Exception : Wrong kind of user role");
+            e.printStackTrace();
+            System.out.println(e.getCause());
         }
         return conn.queryResultReturned;
     }

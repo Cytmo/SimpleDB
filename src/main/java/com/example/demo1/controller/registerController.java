@@ -25,16 +25,18 @@ public class registerController {
 
     @RequestMapping(path = "/register",method = RequestMethod.POST)
     @ResponseBody
-    public JSONObject insertUserInfo(@RequestBody(required=false) users user) throws SQLException {
-        System.out.println(user);
-        System.out.println(user.getUser_name());
+    public JSONObject insertUserInfo(@RequestBody(required=false) JSONObject user) throws SQLException {
+        System.out.println("++++++++++++++++++++++"+user);
+//        System.out.println(user.getUser_name());
         JSONObject json = new JSONObject();
 
 
         json.put("id","-2");
-        json.put("user_id",user.getUser_name());
-        json.put("pwd",user.getUser_password());
-        json.put("email",user.getEmail());
+        json.put("user_id",user.getString("user_name"));
+        json.put("pwd",user.getString("user_password"));
+        json.put("stuID",user.getString("stuID"));
+        System.out.println("0000000000000000         "+json);
+
 
         String ret = temp.parse(json);
         JSONObject result = new JSONObject();

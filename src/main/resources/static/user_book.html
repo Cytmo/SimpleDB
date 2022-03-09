@@ -18,6 +18,10 @@
         <button id="build" class="btn btn-default">Build</button>
         <a href="./user_paper.html">
             <button class="btn btn-default">论文板块</button>
+
+        </a>
+        <a href="./user_record.html">
+            <button class="btn btn-default">借阅记录</button>
         </a>
         <!--<button id="delete" class="btn btn-default">Delete</button>-->
         <!--<button id="blank" class="btn btn-default">Add a blank line</button>-->
@@ -395,6 +399,7 @@
                 obj.userID="后端判断";
                 obj.objectID=objectID;
                 obj.number=numm;
+                obj.book_name=book_name;
                 let post_all=JSON.stringify(obj);
                 console.log(post_all);
                 // 下面填写ajax报文

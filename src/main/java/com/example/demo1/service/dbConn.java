@@ -155,7 +155,7 @@ public class dbConn {
                 temp.put("object_id", rs1.getString("object_id").trim());
                 temp.put("number", rs1.getString("number").trim());
                 temp.put("date", rs1.getDate("date"));
-                temp.put("book_name", rs1.getDate("book_name"));
+                temp.put("book_name", rs1.getString("book_name"));
                 queryResult.add(temp);
             }
 

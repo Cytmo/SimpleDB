@@ -41,17 +41,19 @@
 
                         </div>
                         <div class="form-group mar_b">
+                            <span class="iconfont icon-Profile icon_p"></span>
+                            <input type="text" class="form-control icon-pass" id="stuName"
+                                   placeholder="请输入您的姓名">
+
+                        </div>
+                        <div class="form-group mar_b">
                             <span class="iconfont icon-Unlock icon_p"></span>
                             <input type="password" class="form-control icon-pass" id="password1"
                                    placeholder="请输入您的密码">
 
                         </div>
-                        <div class="form-group mar_b">
-                            <span class="iconfont icon-Unlock icon_p"></span>
-                            <input type="password" class="form-control icon-pass" id="password2"
-                                   placeholder="请再次输入您的密码">
 
-                        </div>
+
 <!--                        <div class="form-check font-s">-->
 <!--                            <div class="custom-control custom-checkbox small">-->
 <!--                                <input type="checkbox" class="custom-control-input" id="customCheck">-->
@@ -90,41 +92,46 @@
         let obj = {};
         obj.user_name = $("input[id='username1']").val();//用户名
 
-        if($("input[id='password1']").val()!==$("input[id='password2']").val()){
-            window.alert("两次密码不一致请重新输入"); //显示警告框
-        }
+        // if($("input[id='password1']").val()!==$("input[id='password2']").val()){
+        //     window.alert("两次密码不一致请重新输入"); //显示警告框
+        // }
 
         obj.user_password = $("input[id='password1']").val();//密码
+        obj.stuID= $("input[id='stuName']").val();//密码
 
-
+        let post_all=JSON.stringify(obj);
+        console.log(post_all);
 
 
         console.log("用户名");
         console.log(obj.user_name);
         console.log("密码");
         console.log(obj.user_password);
-        console.log("密码");
-        console.log($("input[id='password2']").val());
+
+        console.log("姓名");
+        console.log($("input[id='stuName']").val());
+
+        console.log(post_all);
 
         $.ajax({
             type: "POST",
             url: "/register",
             dataType: "json",
-            data:JSON.stringify(obj),
+            data:post_all,
             contentType : "application/json",
             success: function (data) { //传回来的json
 
-                if($("input[id='password1']").val()==$("input[id='password2']").val()){
+
 
                     console.log(data.msg); //传回的信号
                     console.log("sucess");
-                    alert(data.msg);
+                    // alert(data.msg);
                     setTimeout(function(){
-                        console.log("注册成功,3秒后返回登录页面");
+                        // alert("注册成功,3秒后返回登录页面");
                     },3000);
-                    window.location.href="login.html";
+                    // window.location.href="login.html";
 
-                }
+
 
 
 
