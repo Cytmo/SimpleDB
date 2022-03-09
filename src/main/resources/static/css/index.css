@@ -7,11 +7,15 @@
 .logo img{
 	width: 70px;
 }
+.back /*总体背景*/
+{
+	background: url("../images/login_background.png") repeat;
+	overflow: scroll;
+}
 .boxer {
-	    background: #fff url(../images/login_background.png) no-repeat center;
 	    height: 100%;
 	    position: relative;
-	    overflow: hidden;
+	    top:-60px;
 	    background-size: cover;
 }
 .box1 {
