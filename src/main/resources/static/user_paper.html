@@ -77,6 +77,21 @@
 
 <script>
 
+    function option2(value, row, index) {
+        var htm = "";
+
+        htm = '<button id="url"  onclick="download(\'' + escape(JSON.stringify(row)) + '\')">下载论文</button>';
+        return htm;
+    }
+
+
+    function download(row) {
+        var row1 = JSON.parse(unescape(row))
+        var urll= row1.doi;
+        console.log(urll);
+        window.open(urll);
+    }
+
 
     //data-url="data/data1.json"
     $(function () {
@@ -196,7 +211,7 @@
                 field:'doi',
                 title: 'DOI',
                 cellStyle:formatTableUnit,
-                formatter: paramsMatter,
+                formatter: option2,
                 // formatter: actionFormatter
             }, ];
 
