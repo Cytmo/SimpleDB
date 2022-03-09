@@ -286,7 +286,7 @@
 
         $.ajax({
             type: "POST",
-            url: "/admin",
+            url: "/queryAll",
             dataType: "json",
             data:post_all,
             contentType : "application/json",
@@ -480,7 +480,7 @@
             // 下面填写ajax报文
             $.ajax({
                 type: "post",
-                url: "/1" ,  //填写数据库url
+                url: "/modify" ,  //填写数据库url
                 dataType: "json",
                 contentType : "application/json",
                 data:postModify,

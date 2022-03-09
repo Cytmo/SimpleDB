@@ -36,6 +36,8 @@
                         <th data-field="book_id">ID</th>
                         <th data-field="book_name">书名</th>
                         <th data-field="author">作者</th>
+                        <th data-field="shelf">书架</th>
+                        <th data-field="type">类型</th>
                         <th data-field="collection_number">总数</th>
                         <th data-field="existing_number">现有</th>
                         <th data-field="price">价格</th>
@@ -78,13 +80,13 @@
     <!-- 新增和修改界面 -->
     <div class="page-content-wrapper">
         <input type="text" class="inputstyle" id="id" style="display: none;">
-        <p>请选择编辑方式：</p>
-        <div class="form-group">
-            <label for="cbox1">修改数据：</label>
-            <input type="checkbox" name="edit_way" id="cbox1" value="2">
-            <label for="cbox1">添加数据：</label>
-            <input type="checkbox" name="edit_way" id="cbox2" value="3">
-        </div>
+        <p>Tips:只能在新增书本时修改ID</p>
+<!--        <div class="form-group">-->
+<!--            <label for="cbox1">修改数据：</label>-->
+<!--            <input type="checkbox" name="edit_way" id="cbox1" value="2">-->
+<!--            <label for="cbox1">添加数据：</label>-->
+<!--            <input type="checkbox" name="edit_way" id="cbox2" value="3">-->
+<!--        </div>-->
         <div class="form-group">
             <label>ID</label> <input type="text" class="inputstyle" id="book_id">
         </div>
@@ -94,6 +96,15 @@
         <div class="form-group">
             <label>作者</label> <input type="text" class="inputstyle" id="author">
         </div>
+
+        <div class="form-group">
+            <label>书架</label> <input type="text" class="inputstyle" id="shelf">
+        </div>
+        <div class="form-group">
+            <label>类型</label> <input type="text" class="inputstyle" id="type">
+        </div>
+
+
         <div class="form-group">
             <label>总数</label> <input type="text" class="inputstyle" id="collection_number">
         </div>
@@ -207,7 +218,21 @@
                     //editable:true,
                     cellStyle: formatTableUnit,
                     formatter: paramsMatter,
-                }, {
+                },
+                {
+                    field: 'shelf',
+                    title: '书架',
+                    //editable:true,
+                    cellStyle: formatTableUnit,
+                    formatter: paramsMatter,
+                },
+                {
+                    field: 'type',
+                    title: '类型',
+                    //editable:true,
+                    cellStyle: formatTableUnit,
+                    formatter: paramsMatter,
+                },{
                     field: 'collection_number',
                     title: '总数',
                     cellStyle: formatTableUnit,
@@ -259,7 +284,7 @@
 
             $.ajax({
                 type: "POST",
-               url: "/admin",
+               url: "/queryAll",
                 dataType: "json",
                 data:post_all,
                 contentType : "application/json",
@@ -309,10 +334,12 @@
 
         function update(row) {
             $(".page-content-wrapper").show();
-            var data = JSON.parse(unescape(row))
+            let data = JSON.parse(unescape(row))
             $('#book_id').val(data.book_id)
             $('#book_name').val(data.book_name)
             $('#author').val(data.author)
+            $('#shelf').val(data.shelf)
+            $('#type').val(data.type)
             $('#collection_number').val(data.collection_number)
             $('#existing_number').val(data.existing_number)
             $('#price').val(data.price)
@@ -333,6 +360,8 @@
                 book_id: "",
                 book_name: "",
                 author: "",
+                shelf:"",
+                type:"",
                 collection_number: "",
                 existing_number: "",
                 price: "",
@@ -403,17 +432,19 @@
             for (var i = 0; i < obj.length; i++) {
                 if (obj[i].checked) s += obj[i].value + ','; //如果选中，将value添加到变量s中
             }
-            if (s.length == 0) {
-                alert("还没有选择任何编辑方式！")
-            }
-            else if (s.length == 4) {
-                alert("不能同时选择两种编辑方式！")
-            }
-            else{
-                let edit_id = s[0].toString();
+            // if (s.length == 0) {
+            //     alert("还没有选择任何编辑方式！")
+            // }
+            // else if (s.length == 4) {
+            //     alert("不能同时选择两种编辑方式！")
+            // }
+            // else{
+            //     let edit_id = s[0].toString();
                 let book_id = $("#book_id").val();
                 let book_name = $("#book_name").val();
                 let author = $("#author").val();
+                let shelf = $("#shelf").val();
+                let type = $("#type").val();
                 let collection_number = $("#collection_number").val();
                 let existing_number = $("#existing_number").val();
                 let price = $("#price").val();
@@ -427,6 +458,8 @@
                 obj12.kind             = 0;
                 obj12.book_name        =book_name        ;
                 obj12.author           =author           ;
+                obj12.shelf        =shelf        ;
+                obj12.type           =type           ;
                 obj12.collection_number=collection_number;
                 obj12.existing_number  =existing_number  ;
                 obj12.price            =price            ;
@@ -441,7 +474,7 @@
                 // 下面填写ajax报文
                 $.ajax({
                     type: "post",
-                    url: "/test" ,  //填写数据库url
+                    url: "/modify" ,  //填写数据库url
                     dataType: "json",
                     contentType : "application/json",
                     data:postModify,
@@ -458,7 +491,7 @@
                     }
                 })
 
-            }
+            // }
 
 
         })

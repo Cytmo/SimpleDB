@@ -201,6 +201,7 @@ public class parseToSQL {
                 return "Illegal borrow/return number format";
             }
             int currentNum= borrowed + num;
+            if(currentNum <0) return "Illegal return quantity";
 
             String SQLCmdToDelete = "DELETE FROM records WHERE user_id = " + "'" + userid + "' and object_id= '" + objectID + "';";
 

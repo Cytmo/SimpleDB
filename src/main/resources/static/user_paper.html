@@ -17,7 +17,7 @@
     <div>
         <button id="build" class="btn btn-default">Build</button>
         <a href="./user_book.html">
-            <button>图书板块</button>
+            <button class="btn btn-default">图书板块</button>
         </a>
         <!--<button id="delete" class="btn btn-default">Delete</button>-->
         <!--<button id="blank" class="btn btn-default">Add a blank line</button>-->
@@ -42,7 +42,7 @@
                 <th data-field="issue_number">期号</th>
                 <th data-field="volume_number">卷号</th>
                 <th data-field="page_number">页数</th>
-                <th data-field="DOI">摘要</th>
+                <th data-field="doi">DOI</th>
             </tr>
             </thead>
         </table>
@@ -101,25 +101,29 @@
 
     function build() {
         //这里写刷新表格连接数据库的报文
+        let data;
+        let obj={};
+        obj.id="0";
+        obj.KIND="1";
+        let post_all=JSON.stringify(obj);
+        console.log(post_all);
 
-        // $.ajax({
-        //     type: "POST",
-        // //    url: "",这里填写数据库调用接口
-        //     dataType: "json",
-        //     data:{
-        //         id:"1",
-        //         kind:"1"},
-        //     contentType : "application/json",
-        //     success: function (data) {
-        //         $('#table').bootstrapTable('destroy').bootstrapTable({
-        //             columns: columns,
-        //             data: data
-        //         });
-        //     },
-        //     error: function () {
-        //         alert("错误");
-        //     }
-        // });
+        $.ajax({
+            type: "POST",
+           url: "queryAll",//这里填写数据库调用接口
+            dataType: "json",
+            data:post_all,
+            contentType : "application/json",
+            success: function (data_json) {
+                $('#table').bootstrapTable('destroy').bootstrapTable({
+                    columns: columns,
+                    data: data_json
+                });
+            },
+            error: function () {
+                alert("错误");
+            }
+        });
 
 
         let columns = [
@@ -174,40 +178,14 @@
                 formatter: paramsMatter,
             },
             {
-                field:'DOI',
-                title: '摘要',
+                field:'doi',
+                title: 'DOI',
                 cellStyle:formatTableUnit,
                 formatter: paramsMatter,
                 // formatter: actionFormatter
             }, ];
 
 
-
-
-        let data = [
-            {
-                paper_id:"121312321",
-                paper_title:"海底两万里",
-                author:"凡尔纳",
-                date:"30",
-                jc_name:"20",
-                issue_number:"30",
-                volume_number:"新华出版社",
-                page_number:"的说法是的粉色调复活甲扫地机佛菩萨机打发票世纪东方平均速度批发价阿萨德寄发票",
-                DOI:"12121212",
-            },
-            {
-                paper_id:"12321",
-                paper_title:"海底两万里",
-                author:"凡纳",
-                date:"30",
-                jc_name:"20",
-                issue_number:"30",
-                volume_number:"新华出版社",
-                page_number:"的说法是的平均速度批发价阿萨德寄发票",
-                DOI:"121212",
-            }
-        ]
 
 
         $('#table').bootstrapTable('destroy').bootstrapTable({

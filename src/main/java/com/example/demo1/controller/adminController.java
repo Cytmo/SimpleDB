@@ -15,18 +15,18 @@ import java.sql.SQLException;
 public class adminController {
 
 
-
-    @RequestMapping(path = "/admin", method = RequestMethod.POST)
+    //查询所有文献(图书或者论文)
+    @RequestMapping(path = "/queryAll", method = RequestMethod.POST)
     @ResponseBody
-    public JSONArray queryDB(@RequestBody(required = false) JSONObject json_search) throws SQLException {
+    public JSONArray queryAll(@RequestBody(required = false) JSONObject json_search) throws SQLException {
 
         JSONArray jsonArray = new JSONArray();
 
 
-        System.out.print("---------------"+json_search);
+        System.out.print("---------------="+json_search);
         JSONObject tempJSON = new JSONObject();
         tempJSON.put("kind", json_search.getString("KIND"));
-        System.out.println("11111111111111111111111"+json_search.getString("kind"));
+        System.out.println("11111111111111111111111"+json_search.getString("KIND"));
         tempJSON.put("id", "0");
 
         parseToSQL temp = new parseToSQL();
@@ -64,17 +64,17 @@ public class adminController {
     }
 
 
-    @RequestMapping(path = "/br", method = RequestMethod.POST) //borrow and return
-    @ResponseBody
-    public String br(@RequestBody(required = false) JSONObject jsonObject) throws SQLException {
-
-        parseToSQL temp = new parseToSQL();
-        String jsonArray = temp.parse(jsonObject);
-        System.out.println(jsonArray);
-
-        return jsonArray;
-
-    }
+//    @RequestMapping(path = "/br", method = RequestMethod.POST) //borrow and return
+//    @ResponseBody
+//    public String br(@RequestBody(required = false) JSONObject jsonObject) throws SQLException {
+//
+//        parseToSQL temp = new parseToSQL();
+//        String jsonArray = temp.parse(jsonObject);
+//        System.out.println(jsonArray);
+//
+//        return jsonArray;
+//
+//    }
 
     @RequestMapping(path = "/delete", method = RequestMethod.POST) //borrow and return
     @ResponseBody
@@ -102,9 +102,9 @@ public class adminController {
     }
 
 
-    @RequestMapping(path = "/1", method = RequestMethod.POST) //borrow and return
+    @RequestMapping(path = "/modify", method = RequestMethod.POST) //borrow and return
     @ResponseBody
-    public String edit(@RequestBody(required = false) JSONObject jsonObject) throws SQLException {
+    public String modify(@RequestBody(required = false) JSONObject jsonObject) throws SQLException {
 //● 操作id "id:3"
 //● 文献id objectID
 //● 文献类别(0:图书,1:论文) kind
