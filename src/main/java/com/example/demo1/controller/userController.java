@@ -9,7 +9,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import com.example.demo1.service.*;
-
 import java.sql.SQLException;
 
 @Controller
@@ -53,5 +52,19 @@ public class userController {
 
         return jsonArray;
 
+    }
+
+    @RequestMapping(path = "/userOp",method = RequestMethod.POST)
+    @ResponseBody
+    public JSONObject userOp(@RequestBody(required=false) JSONObject jsonObject) throws SQLException {
+        parseToSQL temp = new parseToSQL();
+        String ret = temp.parse(jsonObject);
+        JSONObject result = new JSONObject();
+        if(ret.equals("1")) {
+            result.put("msg","");
+        }else if(ret.equals("0")){
+            result.put("msg","注册失败, 用户已存在");
+        }
+        return result;
     }
 }

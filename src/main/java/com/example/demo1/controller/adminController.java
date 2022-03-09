@@ -139,9 +139,12 @@ public class adminController {
                     "','"+jsonObject.getString("book_name")+"','"+
                     jsonObject.getString("author")+"','"+jsonObject.getString("collection_number")+
                 "','"+
-                    jsonObject.getString("collection_number")+"','"+jsonObject.getString("price")+"','"+
+                    jsonObject.getString("collection_number")+"','"+
+                    jsonObject.getString("price")+"','"+
                     jsonObject.getString("publisher")+"','"+
-                    jsonObject.getString("introduction")+"'";
+                    jsonObject.getString("introduction")+"','"+
+                    jsonObject.getString("shelf")+"','"+
+                    jsonObject.getString("type")+"'";
             System.out.println("=+======="+intro);
         }else if(jsonObject.getString("kind").equals("1")){
             intro = "'"+jsonObject.getString("objectID")+

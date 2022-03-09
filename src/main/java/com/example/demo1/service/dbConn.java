@@ -81,7 +81,8 @@ public class dbConn {
                 String s = rs.getString("book_id") + "-" + rs.getString("book_name") + "-"
                         + rs.getString("author") + "-" + rs.getString("collection_number") + "-"
                         + rs.getString("existing_number") + "-" + rs.getString("price") + "-"
-                        + rs.getString("publisher") + "-" + rs.getString("introduction");
+                        + rs.getString("publisher") + "-" + rs.getString("introduction")
+                        + rs.getString("shelf") + "-"+ rs.getString("type");
                 s = s.replace(" ", "");
                 s = s.replace("-", ",");
                 System.out.println(s);
@@ -122,6 +123,8 @@ public class dbConn {
                 temp.put("price",rs1.getString("price").trim());
                 temp.put("publisher",rs1.getString("publisher").trim());
                 temp.put("introduction",rs1.getString("introduction").trim());
+                temp.put("shelf",rs1.getString("shelf").trim());
+                temp.put("type",rs1.getString("type").trim());
                 queryResult.add(temp);
             }
         }
@@ -152,6 +155,7 @@ public class dbConn {
                 temp.put("object_id", rs1.getString("object_id").trim());
                 temp.put("number", rs1.getString("number").trim());
                 temp.put("date", rs1.getDate("date"));
+                temp.put("book_name", rs1.getDate("book_name"));
                 queryResult.add(temp);
             }
 

@@ -238,7 +238,6 @@ public class parseToSQL {
         String objectID = jsonObj.getString("objectID");
         int number = jsonObj.getIntValue("number");
         int IOD = jsonObj.getIntValue("IOD");
-        System.out.println(IOD+"1111111111111111"+objectID);
         if (IOD == 0) {
             String introduction = jsonObj.getString("introduction");
             System.out.println("INSERT RESULT IS " + insertIntoDB(dbname, introduction, objectID));

@@ -38,10 +38,10 @@ public class registerController {
 
         String ret = temp.parse(json);
         JSONObject result = new JSONObject();
-        if(ret.equals("1")) {
-            result.put("msg","注册成功, 3秒后跳转登录页面");
-        }else if(ret.equals("0")){
-            result.put("msg","注册失败, 用户已存在");
+        if(ret.equals("0")) {
+            result.put("msg","0");
+        }else{
+            result.put("msg","1");
         }
         System.out.println(result);
         return result;
